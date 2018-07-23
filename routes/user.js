@@ -1,10 +1,23 @@
 const express = require('express');
-const ldap = require('../library/ldap');
+const ldap_add_user = require('../library/ldap_add_user');
+const ldap_authenticate = require('../library/ldap_authenticate');
 const router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('user');
+});
+
+router.post('/auth',function(req,response,nextt) {
+  let uid = req.body.uid;
+  let password = req.body.password;
+  ldap_authenticate.authenticate(uid,password).then(()=>{
+    console.log("인증성공");
+    response.send("인증성공");
+  },(err) =>{
+    console.log("인증실패"+err);
+    response.send("인증실패");
+  });
 });
 
 router.post('/',function(req,res,next) {
@@ -14,7 +27,7 @@ router.post('/',function(req,res,next) {
   let display = req.body.display;
   let password = req.body.password;
 
-  ldap.addUser(uidNum,gn,sn,display,password).then(()=>{
+  ldap_add_user.addUser(uidNum,gn,sn,display,password).then(()=>{
     console.log("유저 추가 성공");
     res.send("유저 추가 성공");
   },(err) =>{
@@ -24,44 +37,3 @@ router.post('/',function(req,res,next) {
 });
 
 module.exports = router;
-
-// addUser(1002,"Lee","junseo","ljunseo","1234").then( ()=>{
-//   console.log("success!");
-// } , (err) =>{
-//   console.log("error!" + err);
-// })
-
-// let addUser = (userId,gn ,sn ,display,password) => {
-//   return new Promise((resolve,reject) =>{
-//       const ldapClient = ldapjs.createClient(ldapOptions);
-//       ldapClient.bind(
-//           pwdUser,pwdUserPassword,
-//           (err) =>{
-//               if (err){
-//                   return reject(err);
-//               }
-//               let newUser = {
-//                   uid : gn+sn,
-//                   cn : gn+sn,
-//                   givenName : gn,
-//                   sn : sn,
-//                   gidNumber : 501,
-//                   uidNumber : userId,
-//                   userPassword : password,
-//                   homeDirectory : "/home/users/"+display,
-//                   objectClass: ["person","posixAccount","inetOrgPerson"],
-//               }
-//               ldapClient.add(
-//                   'cn='+gn+sn+','+'ou=users,dc=example,dc=org',
-//                   newUser,
-//                   (err,Response) => {
-//                       if (err){
-//                           return reject(err)
-//                       }
-//                       return resolve(Response);
-//                   }
-//               )
-//           }
-//       )
-//   } )
-// }

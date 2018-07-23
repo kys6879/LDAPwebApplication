@@ -30,19 +30,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/all',function(req,response,next) {
-  let obejctstr = ""
+  let results = ""
   client.search(adSuffix,searchOptions,(err,res) => {
     assert.ifError(err);
     res.on('searchEntry', entry => {
-        obejctstr += entry.object.dn +"<br/>";
-        // console.log(obejctstr);
+      results += "<div style='margin-bottom: 5px'>"+entry.object.dn+"</div><br>";
     });
     res.on('error', err => {
         console.error('error: ' + err.message);
     });
     res.on('end', result => {
-      response.send(""+obejctstr);
-      // console.log(result);
+      response.render("other_all",{
+        results : results
+      });
     });
 });
 });
