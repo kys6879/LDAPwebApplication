@@ -14,38 +14,37 @@ const searchOptions = {
 scope: "sub",
 // filter: '(cn=KimYoungseo )'
 };
+// LDAP Connection Settings
+const server = "172.17.0.2"; // 192.168.1.1
+const userPrincipalName = "cn=admin,dc=example,dc=org"; // Username
+const password = "admin"; // User password
+const adSuffix = "dc=example,dc=org"; // test.com
+
+client.bind(userPrincipalName,password,err => {
+  assert.ifError(err);
+  console.log("bind");
+});
 
 router.get('/', function(req, res, next) {
   res.send('other');
 });
 
-router.get('/all',function(req,res,next) {
-  client.bind(userPrincipalName,password,err => {
+router.get('/all',function(req,response,next) {
+  let obejctstr = ""
+  client.search(adSuffix,searchOptions,(err,res) => {
     assert.ifError(err);
-    
-    client.search(adSuffix,searchOptions,(err,res) => {
-      assert.ifError(err);
-  
-      res.on('searchEntry', entry => {
-          console.log(entry.object.dn);
-      });
-      res.on('searchReference', referral => {
-        console.log('referral: ' + referral.uris.join());
-      });
-      res.on('error', err => {
-          console.error('error: ' + err.message);
-      });
-      res.on('end', result => {
-        // console.log(result);
-      });
-  });
+    res.on('searchEntry', entry => {
+        obejctstr += entry.object.dn +"<br/>";
+        // console.log(obejctstr);
+    });
+    res.on('error', err => {
+        console.error('error: ' + err.message);
+    });
+    res.on('end', result => {
+      response.send(""+obejctstr);
+      // console.log(result);
+    });
 });
 });
-
-// Wrap up
-client.unbind( err => {
-  assert.ifError(err);
-});
-
 
 module.exports = router;
