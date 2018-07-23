@@ -35,6 +35,7 @@ router.get('/all',function(req,response,next) {
     assert.ifError(err);
     res.on('searchEntry', entry => {
       results += "<div style='margin-bottom: 5px'>"+entry.object.dn+"</div><br>";
+      
     });
     res.on('error', err => {
         console.error('error: ' + err.message);
