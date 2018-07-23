@@ -1,44 +1,56 @@
-const ldap = require('ldapjs');
-const ldapSettings = require('./ldapSettings.js');
-const assert = require('assert');
+const ldapjs = require('ldapjs');
+const Promise = require('bluebird');
 
-// Create client and bind to AD
-const client = ldap.createClient({
-    url: `ldap://${ldapSettings.server}`
-});
+const ldapOptions = {
+    url: `ldap://172.17.0.2`,
+    connectTimeout: 30000,
+    reconnect: true
+}
 
-// Search AD for user
-const searchOptions = {
-  scope: "sub",
-  // filter: '(cn=KimYoungseo )'
+const pwdUser = "cn=admin,dc=example,dc=org";
+const pwdUserPassword = "admin";
+
+let addUser = (userIdNum,gn ,sn ,display,password) => {
+    return new Promise((resolve,reject) =>{
+        const ldapClient = ldapjs.createClient(ldapOptions);
+        ldapClient.bind(
+            pwdUser,pwdUserPassword,
+            (err) =>{
+                if (err){
+                    return reject(err);
+                }
+                let newUser = {
+                    uid : gn+sn,
+                    cn : gn+sn,
+                    givenName : gn,
+                    sn : sn,
+                    gidNumber : 501,
+                    uidNumber : userIdNum,
+                    userPassword : password,
+                    homeDirectory : "/home/users/"+display,
+                    objectClass: ["person","posixAccount","inetOrgPerson"],
+                }
+                ldapClient.add(
+                    'cn='+gn+sn+','+'ou=users,dc=example,dc=org',
+                    newUser,
+                    (err,Response) => {
+                        if (err){
+                            return reject(err)
+                        }
+                        return resolve(Response);
+                    }
+                )
+            }
+        )
+    } )
+}
+
+module.exports = {
+  addUser
 };
 
-client.bind(userPrincipalName,password,err => {
-    assert.ifError(err);
-    
-    client.search(adSuffix,searchOptions,(err,res) => {
-      assert.ifError(err);
-  
-      res.on('searchEntry', entry => {
-          console.log("searchEntry 이벤트");
-          console.log(entry.object.dn);
-      });
-      res.on('searchReference', referral => {
-        console.log("searchReference 이벤트");
-        console.log('referral: ' + referral.uris.join());
-      });
-      res.on('error', err => {
-        console.log("error 이벤트");
-          console.error('error: ' + err.message);
-      });
-      res.on('end', result => {
-        console.log("end 이벤트");
-        // console.log(result);
-      });
-  });
-});
-
-// Wrap up
-client.unbind( err => {
-    assert.ifError(err);
-});
+// addUser(1002,"Lee","junseo","ljunseo","1234").then( ()=>{
+//     console.log("success!");
+// } , (err) =>{
+//     console.log("error!" + err);
+// })
