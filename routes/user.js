@@ -2,6 +2,7 @@
 const express = require('express');
 const ldap_add_user = require('../library/ldap_add_user');
 const ldap_authenticate = require('../library/ldap_authenticate');
+const ldap_change_password = require('../library/ldap_change_password');
 const router = express.Router();
 
 //       전체 유저 검색
@@ -37,6 +38,21 @@ router.post('/auth',(req,res,next)=>{
     console.log("인증실패"+err);
     res.send("인증실패");
   });
+})
+
+//       특정 유저 비밀번호 변경
+router.put('/password',(req,res,next)=>{
+  var uid = req.body.uid;
+  var passwordOld = req.body.passwordOld;
+  var passwordNew = req.body.passwordNew;
+
+  ldap_change_password.changePassword(uid,passwordOld,passwordNew).then(()=>{
+    console.log("변경성공");
+    res.send("변경성공");
+  },(err)=>{
+    console.log("변경실패"+err);
+    res.send("변경실패");    
+  } )
 })
 
 
