@@ -1,5 +1,6 @@
 const ldapjs = require('ldapjs');
-const Promise = require('bluebird');
+// const Promise = require('bluebird');
+const fs = require('fs');
 
 const ldapOptions = {
     url: `ldap://172.17.0.2`,
@@ -19,6 +20,7 @@ let getAllRecords = () =>{
             pwdUserPassword,
             (err) => {
                 if (err) return reject(err);
+                let filterOption = "objectClass=person";
                 let options = {
                     attributes: [
                         "cn",
@@ -27,13 +29,13 @@ let getAllRecords = () =>{
                         "pwdPolicySubentry"
                     ],
                     scope: "sub",
-                    filter: "(objectClass=person)"  
+                    filter: filterOption
                 };
                 ldapClient.search(adSuffix,options,(err,res)=>{
                     if(err) return reject(err);
                     let entries = [];
                     res.on('searchEntry',(entry)=>{
-                        var r = entry.object.cn;
+                        let r = entry.object.cn;
                         console.log(""+r);
                         entries.push(r);
                     });
@@ -41,7 +43,12 @@ let getAllRecords = () =>{
                         reject(err);
                     });
                     res.on('end',()=>{
-                        resolve(entries);
+                        let results = {
+                            entries : entries,
+                            filterOption : filterOption
+                        }
+                        console.log(results);
+                        resolve(results,filterOption);
                     });
                 });
             }

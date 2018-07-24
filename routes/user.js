@@ -11,7 +11,11 @@ router.get('/',(req,res,next)=>{
 })
 
 //       특정 유저 추가
-router.post('/',(req,res,next)=>{
+router.get('/add',(req,res,next)=>{
+  res.render('user_add');
+})
+
+router.post('/add',(req,res,next)=>{
   let uidNum = req.body.uidNum;
   let gn = req.body.gn;
   let sn = req.body.sn;

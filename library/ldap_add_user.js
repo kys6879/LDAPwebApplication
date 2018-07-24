@@ -30,8 +30,9 @@ let addUser = (userIdNum,gn ,sn ,display,password) => {
                     homeDirectory : "/home/users/"+display,
                     objectClass: ["person","posixAccount","inetOrgPerson"],
                 }
+                let userDn = 'cn='+gn+sn+','+'ou=users,dc=example,dc=org';
                 ldapClient.add(
-                    'cn='+gn+sn+','+'ou=users,dc=example,dc=org',
+                    userDn,
                     newUser,
                     (err,Response) => {
                         if (err){
