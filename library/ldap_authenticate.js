@@ -28,9 +28,3 @@ let authenticate = (uid,password) => {
 module.exports = {
   authenticate
 };
-
-// addUser(1002,"Lee","junseo","ljunseo","1234").then( ()=>{
-//     console.log("success!");
-// } , (err) =>{
-//     console.log("error!" + err);
-// })

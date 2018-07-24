@@ -46,11 +46,5 @@ let addUser = (userIdNum,gn ,sn ,display,password) => {
 }
 
 module.exports = {
-  addUser
+    addUser
 };
-
-// addUser(1002,"Lee","junseo","ljunseo","1234").then( ()=>{
-//     console.log("success!");
-// } , (err) =>{
-//     console.log("error!" + err);
-// })
