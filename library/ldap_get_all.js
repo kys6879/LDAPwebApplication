@@ -45,6 +45,8 @@ let getAllRecords = (filterOption) =>{
                 let options = {
                     attributes: [
                         "cn",
+                        "ou",
+                        "dc",
                         "ObjectClass",
                         "createTimestamp",
                         "modifyTimestamp",
@@ -59,7 +61,6 @@ let getAllRecords = (filterOption) =>{
                     res.on('searchEntry',(entry)=>{
                         let r = entry.object;
                         if(r !== undefined){
-                            console.log("푸시전 : "+r.objectClass);
                             createDetailObjectClass(r);
                             entries.push(r);
                         }
