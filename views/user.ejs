@@ -11,7 +11,9 @@
           --------------
           <br>
           <% results.entries.forEach((entries)=>{%>
-          <%- entries.dn %> 
+          <a href="/user/<%=entries.cn%>">
+            <%- entries.dn%> <br>
+          </a>
           <br>
           --------------
           <br>

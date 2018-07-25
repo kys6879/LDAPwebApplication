@@ -11,7 +11,15 @@
           --------------
           <br>
           <% results.entries.forEach((entries)=>{%>
-          <%- entries.dn %> 
+            <a href="/other/<%=entries.cn%>">
+              <% for (var i=0; i<entries.objectClass.length; i++) { %>
+                  <% if(entries.objectClass[i] == "organizationalUnit"){ %>
+                    그룹 :
+                  <% } %>
+                <% }%>
+              <%- entries.dn %>
+              <%- entries.objectClass.length %>
+            </a>
           <br>
           --------------
           <br>

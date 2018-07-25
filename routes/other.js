@@ -16,4 +16,10 @@ router.get('/',(request,response,next)=>{
 )
 });
 
+router.get('/:cn',(request,response,next)=>{
+  let cn = request.params.cn;
+  response.send(""+cn);
+}); 
+
+
 module.exports = router;

@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('ou');
+router.get('/:ou', function(req, res, next) {
+  let ou = req.params.ou;
+  res.send(""+ou);
 });
 
 module.exports = router;

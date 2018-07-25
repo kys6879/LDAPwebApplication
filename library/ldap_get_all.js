@@ -1,5 +1,4 @@
 const ldapjs = require('ldapjs');
-// const Promise = require('bluebird');
 const fs = require('fs');
 
 const ldapOptions = {
@@ -12,6 +11,29 @@ const pwdUser = "cn=admin,dc=example,dc=org";
 const pwdUserPassword = "admin";
 const adSuffix = "dc=example,dc=org"; // test.com
 
+let createDetailObjectClass = (r) =>{
+    for(let i=0; i<r.objectClass.length; i++){
+        switch(r.objectClass[i]){
+            case "organizationalUnit":
+                r.detailObjectClass = "organizationalUnit";
+                break;
+            case "person":
+                r.detailObjectClass = "person";
+                break;
+            case "posixGroup":
+                r.detailObjectClass = "posixGroup";
+                break;
+            case "organization":
+                r.detailObjectClass = "organization";
+                break;
+            case "organizationalRole":
+                r.detailObjectClass = "organizationalRole";
+                break;
+            
+        }                       
+    }
+}
+
 let getAllRecords = (filterOption) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
@@ -23,6 +45,7 @@ let getAllRecords = (filterOption) =>{
                 let options = {
                     attributes: [
                         "cn",
+                        "ObjectClass",
                         "createTimestamp",
                         "modifyTimestamp",
                         "pwdPolicySubentry"
@@ -36,7 +59,8 @@ let getAllRecords = (filterOption) =>{
                     res.on('searchEntry',(entry)=>{
                         let r = entry.object;
                         if(r !== undefined){
-                            console.log(""+r);
+                            console.log("푸시전 : "+r.objectClass);
+                            createDetailObjectClass(r);
                             entries.push(r);
                         }
                     });
@@ -49,7 +73,7 @@ let getAllRecords = (filterOption) =>{
                             filterOption : filterOption,
                             entryLength : entries.length
                         }
-                        console.log(results);
+                        console.log(results.entries);
                         resolve(results);
                     });
                 });
