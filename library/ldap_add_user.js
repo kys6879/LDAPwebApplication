@@ -10,7 +10,7 @@ const ldapOptions = {
 const pwdUser = "cn=admin,dc=example,dc=org";
 const pwdUserPassword = "admin";
 
-let addUser = (userIdNum,gn ,sn ,display,password) => {
+let addUser = (gn,sn,displayName,gidNum,uidNum,password) => {
     return new Promise((resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
@@ -20,14 +20,14 @@ let addUser = (userIdNum,gn ,sn ,display,password) => {
                     return reject(err);
                 }
                 let newUser = {
-                    uid : gn+sn,
-                    cn : gn+sn,
                     givenName : gn,
                     sn : sn,
-                    gidNumber : 501,
-                    uidNumber : userIdNum,
+                    uid : displayName,
+                    gidNumber : gidNum,
+                    uidNumber : uidNum,
                     userPassword : password,
-                    homeDirectory : "/home/users/"+display,
+                    cn : gn+sn,
+                    homeDirectory : "/home/users/"+displayName,
                     objectClass: ["person","posixAccount","inetOrgPerson"],
                 }
                 let userDn = 'cn='+gn+sn+','+'ou=users,dc=example,dc=org';

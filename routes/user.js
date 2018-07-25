@@ -1,14 +1,25 @@
 //       모듈 불러오기
 const express = require('express');
 const ldap_add_user = require('../library/ldap_add_user');
+const ldap_get_all = require('../library/ldap_get_all');
 const ldap_authenticate = require('../library/ldap_authenticate');
 const ldap_change_password = require('../library/ldap_change_password');
 const router = express.Router();
 
 //       전체 유저 검색
-router.get('/',(req,res,next)=>{
-  res.send('user');
-})
+router.get('/',(request,response,next)=>{
+  let filter = "(ObjectClass=person)"
+  ldap_get_all.getAllRecords(filter).then((results)=>{
+    console.log("검색성공!");
+    response.render('user',{
+      results : results
+    })
+  },(err)=>{
+    console.log("검색실패",err);
+    response.send("검색실패");
+  }
+)
+});
 
 //       특정 유저 추가
 router.get('/add',(req,res,next)=>{
@@ -16,15 +27,16 @@ router.get('/add',(req,res,next)=>{
 })
 
 router.post('/add',(req,res,next)=>{
-  let uidNum = req.body.uidNum;
   let gn = req.body.gn;
   let sn = req.body.sn;
-  let display = req.body.display;
+  let displayName = req.body.displayName;
+  let gidNum = req.body.gidNumber;
+  let uidNum = req.body.uidNumber;
   let password = req.body.password;
-
-  ldap_add_user.addUser(uidNum,gn,sn,display,password).then(()=>{
+  
+  ldap_add_user.addUser(gn,sn,displayName,gidNum,uidNum,password).then(()=>{
     console.log("유저 추가 성공");
-    res.send("유저 추가 성공");
+    res.redirect('/');
   },(err) =>{
     console.log("추가 실패 코드 : "+err);
     res.send("추가 실패 코드 : "+err);
@@ -59,5 +71,9 @@ router.put('/password',(req,res,next)=>{
   } )
 })
 
+router.get('/:cn',(request,response,next)=>{
+  let cn = request.params.cn;
+  response.send(""+cn);
+}); 
 
 module.exports = router;

@@ -3,15 +3,24 @@
   <head>
     <title>LDAP 기반 웹 애플리케이션</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      #reg input{
+        margin-bottom: 5px;
+      }
+    </style>
   </head>
   <body>
     <h1>회원 생성</h1>
-    <form action="/user/add" method="post">
-      성 : <input type="text" name="gn">
-      이름 : <input type="text" name="sn">
-      그룹번호 : <input type="text" name="gidNumber">
-      유저번호 : <input type="text" name="uidNumber">
-      비밀번호 : <input type="password" name="password">
-    </form>
+    <div id="reg">
+      <form action="/user/add" method="post">
+        성 <input type="text" name="gn" placeholder="gn" style="margin-left: 38px"> <br>
+        이름 <input type="text" name="sn" placeholder="sn" style="margin-left: 25px"> <br>
+        대표이름 <input type="text" name="displayName" placeholder="displayName"> <br>
+        그룹번호 <input type="text" name="gidNumber" placeholder="gidNumber"> <br>
+        유저번호 <input type="text" name="uidNumber" placeholder="uidNumber"> <br>
+        비밀번호 <input type="password" name="password" placeholder="password"> <br>
+        <input type="submit" value="생성">
+      </form>
+    </div>
   </body>
 </html>

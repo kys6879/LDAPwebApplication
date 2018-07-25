@@ -12,7 +12,7 @@ const pwdUser = "cn=admin,dc=example,dc=org";
 const pwdUserPassword = "admin";
 const adSuffix = "dc=example,dc=org"; // test.com
 
-let getAllRecords = () =>{
+let getAllRecords = (filterOption) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
@@ -20,7 +20,6 @@ let getAllRecords = () =>{
             pwdUserPassword,
             (err) => {
                 if (err) return reject(err);
-                let filterOption = "objectClass=person";
                 let options = {
                     attributes: [
                         "cn",
@@ -35,9 +34,11 @@ let getAllRecords = () =>{
                     if(err) return reject(err);
                     let entries = [];
                     res.on('searchEntry',(entry)=>{
-                        let r = entry.object.cn;
-                        console.log(""+r);
-                        entries.push(r);
+                        let r = entry.object;
+                        if(r !== undefined){
+                            console.log(""+r);
+                            entries.push(r);
+                        }
                     });
                     res.on('error',(err)=>{
                         reject(err);
@@ -45,10 +46,11 @@ let getAllRecords = () =>{
                     res.on('end',()=>{
                         let results = {
                             entries : entries,
-                            filterOption : filterOption
+                            filterOption : filterOption,
+                            entryLength : entries.length
                         }
                         console.log(results);
-                        resolve(results,filterOption);
+                        resolve(results);
                     });
                 });
             }

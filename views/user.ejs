@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LDAP 기반 웹 애플리케이션</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <h1>유저 정보 가져오기</h1>
+        결과 : <br>
+          --------------
+          <br>
+          <% results.entries.forEach((entries)=>{%>
+          <%- entries.dn %> 
+          <br>
+          --------------
+          <br>
+          <%})%>
+          <br>
+        필터 : <%-results.filterOption %> <br>
+        개수 : <%-results.entryLength %> <br>
+    <a href="/">메인으로</a>
+  </body>
+</html>
