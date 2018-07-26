@@ -14,22 +14,25 @@
         <%= results.entries[1].dn %>
 
         <script type="text/javascript">
-            var d = new dTree('d');
-            let str="<%=results.entryLength%>";
-            let afterarr = '<%-entriesstr%>';
-            let beforearr = JSON.parse('<%-entriesstr %>');
+            let d = new dTree('d');
+            let entryLength="<%=results.entryLength%>";
 
-            for(var i =0; i<str; i++){
-                let s = "<%=results.entries[0].dn%>"
-                document.write(s+"<br>");
-            }
-            d.add(0,-1,'dc = example, dc = org');
-            d.add(1,0,'cn = admin');
-            d.add(2,0,'ou = groups');
-            d.add(3,2,'cn=dev');
-            d.add(4,0,'ou = users');
-            d.add(5,4,'cn = kim');
-            d.add(6,4,'cn = lee');
+            let entries = JSON.parse('<%-entriesstr %>');
+            
+            entries.forEach((entry,i) => {
+                let beforeDn = entry.dn;
+                let afterDn = beforeDn.split(',');
+                d.add(i,-1,afterDn[0]);
+                document.write(afterDn[0] +"<br>");
+            });
+
+            // d.add(0,-1,'dc = example, dc = org');
+            // d.add(1,0,'cn = admin');
+            // d.add(2,0,'ou = groups');
+            // d.add(3,2,'cn=dev');
+            // d.add(4,0,'ou = users');
+            // d.add(5,4,'cn = kim');
+            // d.add(6,4,'cn = lee');
     
             document.write(d);
             document.write(str);

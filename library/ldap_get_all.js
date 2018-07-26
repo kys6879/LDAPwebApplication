@@ -41,6 +41,19 @@ let createTreeLevel = (r) =>{
     r.treeLevel = treeLevel.length-2;
 }
 
+let createParents = (r) =>{
+    let beforeDn = r.dn;
+    if(beforeDn == adSuffix){
+        r.parentsDn = "king";
+        return ;
+    } 
+    let signIndex = beforeDn.indexOf(",");
+
+    let backDn = beforeDn.substring(signIndex+1,beforeDn.length);
+
+    r.parentsDn = backDn;
+}
+
 let getAllRecords = (filterOption) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
@@ -70,6 +83,7 @@ let getAllRecords = (filterOption) =>{
                         if(r !== undefined){
                             createDetailObjectClass(r);
                             createTreeLevel(r);
+                            createParents(r);
                             entries.push(r);
                         }
                     });
