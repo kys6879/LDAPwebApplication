@@ -11,21 +11,28 @@
     <div class="dtree">
 
         <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
+        <%= results.entries[1].dn %>
 
         <script type="text/javascript">
-            var beforeStr = "02,123,4567";
-            var afterStr = beforeStr.split(',');
-
             var d = new dTree('d');
+            let str="<%=results.entryLength%>";
+            let afterarr = '<%-entriesstr%>';
+            let beforearr = JSON.parse('<%-entriesstr %>');
+
+            for(var i =0; i<str; i++){
+                let s = "<%=results.entries[0].dn%>"
+                document.write(s+"<br>");
+            }
             d.add(0,-1,'dc = example, dc = org');
             d.add(1,0,'cn = admin');
             d.add(2,0,'ou = groups');
             d.add(3,2,'cn=dev');
             d.add(4,0,'ou = users');
             d.add(5,4,'cn = kim');
+            d.add(6,4,'cn = lee');
     
             document.write(d);
-            
+            document.write(str);
         </script>
     </div>    
 </body>
