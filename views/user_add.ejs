@@ -12,15 +12,25 @@
   <body>
     <h1>회원 생성</h1>
     <div id="reg">
+     <%
+     let length = results.entryLength;
+     %>
       <form action="/user/add" method="post">
+
         성 <input type="text" name="gn" placeholder="gn" style="margin-left: 38px"> <br>
         이름 <input type="text" name="sn" placeholder="sn" style="margin-left: 25px"> <br>
         대표이름 <input type="text" name="displayName" placeholder="displayName"> <br>
-        그룹번호 <input type="text" name="gidNumber" placeholder="gidNumber"> <br>
+        그룹 : <select name="gidNumber" >
+            <% for(var i =0 ;i<length; i++){ %>
+                 <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
+            <% } %>
+        </select>
+        <br>
         유저번호 <input type="text" name="uidNumber" placeholder="uidNumber"> <br>
         비밀번호 <input type="password" name="password" placeholder="password"> <br>
         <input type="submit" value="생성">
       </form>
     </div>
+    <%-results.entryLength %>
   </body>
 </html>

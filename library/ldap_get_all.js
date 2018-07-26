@@ -25,7 +25,8 @@ let getAllRecords = (filterOption) =>{
                         "ObjectClass",
                         "createTimestamp",
                         "modifyTimestamp",
-                        "pwdPolicySubentry"
+                        "pwdPolicySubentry",
+                        "gidNumber"
                     ],
                     scope: "sub",
                     filter: filterOption

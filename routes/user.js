@@ -23,7 +23,17 @@ router.get('/',(request,response,next)=>{
 
 //       특정 유저 추가
 router.get('/add',(req,res,next)=>{
-  res.render('user_add');
+  let filter = "(ObjectClass=posixGroup)"
+  ldap_get_all.getAllRecords(filter).then((results)=>{
+    console.log("검색성공!" + results);
+    res.render('user_add',{
+      results : results
+    })
+  },(err)=>{
+    console.log("검색실패",err);
+    res.send("검색실패");
+  }
+)  
 })
 
 router.post('/add',(req,res,next)=>{
