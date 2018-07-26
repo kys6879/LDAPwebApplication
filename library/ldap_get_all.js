@@ -34,6 +34,13 @@ let createDetailObjectClass = (r) =>{
     }
 }
 
+let createTreeLevel = (r) =>{
+    let beforeDn = r.dn; 
+    let treeLevel = beforeDn.match(/,/g);
+
+    r.treeLevel = treeLevel.length-2;
+}
+
 let getAllRecords = (filterOption) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
@@ -62,6 +69,7 @@ let getAllRecords = (filterOption) =>{
                         let r = entry.object;
                         if(r !== undefined){
                             createDetailObjectClass(r);
+                            createTreeLevel(r);
                             entries.push(r);
                         }
                     });
