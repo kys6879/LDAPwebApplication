@@ -9,43 +9,32 @@
   </head>
   <body>
       <div class="dtree">
+        
       <h1>모든 정보 가져오기</h1>
+      <p><a href="javascript: d.openAll();">모두 열기</a> | <a href="javascript: d.closeAll();">모두 닫기</a></p>
         결과 : <br>
           --------------
           <br>
-          
-          <% results.entries.forEach((entries)=>{%>
-            <% switch (entries.detailObjectClass) {
-                case "person" : %>
-                <a href="/user/<%=entries.cn%>">    
-                        <% break;
-                
-                case 'posixGroup' : %>
-                <a href="/group/<%=entries.cn%>">    
-                        <% break;
-                
-                case 'organizationalUnit' : %>
-                <a href="/ou/<%=entries.ou%>">      
-                        <% break;
 
-                case 'organizationalRole' : %>
-                <a href="/admin/<%=entries.cn%>">       
-                        <% break;
-                case 'organization' : %>
-                <a href="/org/<%=entries.dc%>">     
-                        <% break;              
-                } %>
-                <%
-                let beforeDn = entries.dn;
+          <script type="text/javascript">
+            let d = new dTree('d');
+            let entryLength="<%=results.entryLength%>";
+
+            let entries = JSON.parse('<%-entriesstr %>');
+            
+            entries.forEach((entry,i) => {
+                let beforeDn = entry.dn;
                 let afterDn = beforeDn.split(',');
-                %>
-                <%- afterDn[0] %> <br>
-              그룹 : <%- entries.detailObjectClass %> <br>
-            </a>
-          --------------
-          <br>
-          <%})%>
-        
+                if(beforeDn == "<%-adSuffix%>"){
+                    d.add(beforeDn,-1,afterDn[0]);
+                }else{
+                    d.add(beforeDn,entry.parentsDn,afterDn[0]);
+                }
+            });
+
+            document.write(d);
+        </script>
+          
           <br>
         필터 : <%-results.filterOption %> <br>
         개수 : <%-results.entryLength %> <br>

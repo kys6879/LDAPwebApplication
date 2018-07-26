@@ -11,8 +11,7 @@
     <div class="dtree">
 
         <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
-        <%= results.entries[1].dn %>
-
+        <br>
         <script type="text/javascript">
             let d = new dTree('d');
             let entryLength="<%=results.entryLength%>";
@@ -22,20 +21,14 @@
             entries.forEach((entry,i) => {
                 let beforeDn = entry.dn;
                 let afterDn = beforeDn.split(',');
-                d.add(i,-1,afterDn[0]);
-                document.write(afterDn[0] +"<br>");
+                if(beforeDn == "<%-adSuffix%>"){
+                    d.add(beforeDn,-1,afterDn[0]);
+                }else{
+                    d.add(beforeDn,entry.parentsDn,afterDn[0]);
+                }
             });
 
-            // d.add(0,-1,'dc = example, dc = org');
-            // d.add(1,0,'cn = admin');
-            // d.add(2,0,'ou = groups');
-            // d.add(3,2,'cn=dev');
-            // d.add(4,0,'ou = users');
-            // d.add(5,4,'cn = kim');
-            // d.add(6,4,'cn = lee');
-    
             document.write(d);
-            document.write(str);
         </script>
     </div>    
 </body>

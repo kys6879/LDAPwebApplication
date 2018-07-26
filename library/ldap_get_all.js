@@ -54,6 +54,7 @@ let createParents = (r) =>{
     r.parentsDn = backDn;
 }
 
+
 let getAllRecords = (filterOption) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);

@@ -2,12 +2,16 @@ const express = require('express');
 const ldap_get_all = require('../library/ldap_get_all');
 const router = express.Router();
 
+const adSuffix = "dc=example,dc=org"; // test.com
+
 router.get('/',(request,response,next)=>{
   let filter = "(ObjectClass=*)"
   ldap_get_all.getAllRecords(filter).then((results)=>{
-    console.log("검색성공!");
+    let entriesstr = JSON.stringify(results.entries);
     response.render('other',{
-      results : results
+      results : results,
+      entriesstr : entriesstr,
+      adSuffix : adSuffix
     })
   },(err)=>{
     console.log("검색실패",err);

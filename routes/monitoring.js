@@ -2,6 +2,7 @@ var express = require('express');
 const ldap_get_all = require('../library/ldap_get_all');
 var router = express.Router();
 
+const adSuffix = "dc=example,dc=org"; // test.com
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   let filter = "(ObjectClass=*)";
@@ -10,6 +11,7 @@ router.get('/', function(req, res, next) {
     res.render('monitor',{
       results : results,
       entriesstr : entriesstr,
+      adSuffix : adSuffix
     })
   },(err)=>{
     console.log("검색실패",err);
