@@ -1,14 +1,12 @@
 const ldapjs = require('ldapjs');
+const config = require('../config/config');
 const Promise = require('bluebird');
 
 const ldapOptions = {
-    url: `ldap://172.17.0.2`,
+    url: config.server,
     connectTimeout: 30000,
     reconnect: true
 }
-
-const pwdUser = "cn=admin,dc=example,dc=org";
-const pwdUserPassword = "admin";
 
 let authenticate = (uid,password) => {
     return new Promise((resolve ,reject) => {

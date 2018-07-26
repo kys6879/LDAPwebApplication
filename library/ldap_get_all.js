@@ -1,66 +1,20 @@
 const ldapjs = require('ldapjs');
+const config = require('../config/config');
+const createProperties = require('../library/ldap_create_properties')
 const fs = require('fs');
 
 const ldapOptions = {
-    url: `ldap://172.17.0.2`,
+    url: config.server,
     connectTimeout: 30000,
     reconnect: true
 }
-
-const pwdUser = "cn=admin,dc=example,dc=org";
-const pwdUserPassword = "admin";
-const adSuffix = "dc=example,dc=org"; // test.com
-
-let createDetailObjectClass = (r) =>{
-    for(let i=0; i<r.objectClass.length; i++){
-        switch(r.objectClass[i]){
-            case "organizationalUnit":
-                r.detailObjectClass = "organizationalUnit";
-                break;
-            case "person":
-                r.detailObjectClass = "person";
-                break;
-            case "posixGroup":
-                r.detailObjectClass = "posixGroup";
-                break;
-            case "organization":
-                r.detailObjectClass = "organization";
-                break;
-            case "organizationalRole":
-                r.detailObjectClass = "organizationalRole";
-                break;
-            
-        }                       
-    }
-}
-
-let createTreeLevel = (r) =>{
-    let beforeDn = r.dn; 
-    let treeLevel = beforeDn.match(/,/g);
-
-    r.treeLevel = treeLevel.length-2;
-}
-
-let createParents = (r) =>{
-    let beforeDn = r.dn;
-    if(beforeDn == adSuffix){
-        r.parentsDn = "king";
-        return ;
-    } 
-    let signIndex = beforeDn.indexOf(",");
-
-    let backDn = beforeDn.substring(signIndex+1,beforeDn.length);
-
-    r.parentsDn = backDn;
-}
-
 
 let getAllRecords = (filterOption) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
-            pwdUser,
-            pwdUserPassword,
+            config.pwdUser,
+            config.pwdUserPassword,
             (err) => {
                 if (err) return reject(err);
                 let options = {
@@ -76,15 +30,16 @@ let getAllRecords = (filterOption) =>{
                     scope: "sub",
                     filter: filterOption
                 };
-                ldapClient.search(adSuffix,options,(err,res)=>{
+                ldapClient.search(config.adSuffix,options,(err,res)=>{
                     if(err) return reject(err);
                     let entries = [];
                     res.on('searchEntry',(entry)=>{
                         let r = entry.object;
                         if(r !== undefined){
-                            createDetailObjectClass(r);
-                            createTreeLevel(r);
-                            createParents(r);
+                            createProperties.createDetailObjectClass(r);
+                            createProperties.createTreeLevel(r);
+                            createProperties.createParents(r);
+                            createProperties.createRoutePath(r);
                             entries.push(r);
                         }
                     });

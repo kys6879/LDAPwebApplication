@@ -26,9 +26,9 @@
                 let beforeDn = entry.dn;
                 let afterDn = beforeDn.split(',');
                 if(beforeDn == "<%-adSuffix%>"){
-                    d.add(beforeDn,-1,afterDn[0]);
+                    d.add(beforeDn,-1,afterDn[0],"/org");
                 }else{
-                    d.add(beforeDn,entry.parentsDn,afterDn[0]);
+                    d.add(beforeDn,entry.parentsDn,afterDn[0],entry.routePath);
                 }
             });
 
