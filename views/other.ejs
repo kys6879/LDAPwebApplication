@@ -31,7 +31,11 @@
                 <a href="/org/<%=entries.dc%>">     
                         <% break;              
                 } %>
-              <%- entries.dn %> <br>
+                <%
+                let beforeDn = entries.dn;
+                let afterDn = beforeDn.split(',');
+                %>
+                <%- afterDn[0] %> <br>
               그룹 : <%- entries.detailObjectClass %> <br>
             </a>
           --------------

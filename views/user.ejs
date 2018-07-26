@@ -12,7 +12,11 @@
           <br>
           <% results.entries.forEach((entries)=>{%>
           <a href="/user/<%=entries.cn%>">
-            <%- entries.dn%> <br>
+            <%
+            let beforeDn = entries.dn;
+            let afterDn = beforeDn.split(',');
+            %>
+            <%- afterDn[0] %>
           </a>
           <br>
           --------------
