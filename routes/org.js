@@ -1,6 +1,6 @@
 const express = require('express');
 const config = require('../config/config');
-const ldap_get_org = require('../library/ldap_get_org');
+const ldap_search = require('../library/ldap_search');
 const router = express.Router();
 
 router.get('/',(request,response,next)=>{
@@ -11,10 +11,19 @@ router.get('/',(request,response,next)=>{
 router.get('/:dc',(request,response,next)=>{
   let dc = request.params.dc;
   let filter = "(ObjectClass=organization)";
-  let baseDn = `${config.adSuffix}`
-  ldap_get_org.getOrg(baseDn,filter).then((results) => {
+  let baseDn = `${config.adSuffix}`;
+  let options = {
+    attributes: [
+        "dc",
+        "o",
+        "ObjectClass",
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
     console.log("검색성공!" + results);
-    response.render('org_detail',{
+    response.render('detail/org_detail',{
       entry : results.entries[0]
     })
   }, (err)=>{

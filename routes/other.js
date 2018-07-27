@@ -1,12 +1,28 @@
 const express = require('express');
-const ldap_get_all = require('../library/ldap_get_all');
+const ldap_search = require('../library/ldap_search');
 const router = express.Router();
 
 const adSuffix = "dc=example,dc=org"; // test.com
 
 router.get('/',(request,response,next)=>{
-  let filter = "(ObjectClass=*)"
-  ldap_get_all.getAllRecords(filter).then((results)=>{
+  let filter = "(ObjectClass=*)";
+
+  let options = {
+    attributes: [
+        "cn",
+        "ou",
+        "dc",
+        "ObjectClass",
+        "createTimestamp",
+        "modifyTimestamp",
+        "pwdPolicySubentry",
+        "gidNumber"
+    ],
+    scope: "sub",
+    filter: "(ObjectClass=*)"
+};
+
+  ldap_search.getEntryData(filter,options).then((results)=>{
     let entriesstr = JSON.stringify(results.entries);
     response.render('other',{
       results : results,

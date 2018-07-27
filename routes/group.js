@@ -1,6 +1,6 @@
 var express = require('express');
 const config = require('../config/config');
-const ldap_get_group = require('../library/ldap_get_group');
+const ldap_search = require('../library/ldap_search');
 var router = express.Router();
 
 /* GET users listing. */
@@ -12,10 +12,24 @@ router.get('/', function(req, res, next) {
 router.get('/:cn',(request,response,next)=>{
   let cn = request.params.cn;
   let filter = "(ObjectClass=posixGroup)";
-  let baseDn = `cn=${cn},ou=groups,${config.adSuffix}`
-  ldap_get_group.getGroup(baseDn,filter).then((results) => {
+  let baseDn = `cn=${cn},ou=groups,${config.adSuffix}`;
+  let options = {
+    attributes: [
+        "cn",
+        "uid",
+        "ObjectClass",
+        "createTimestamp",
+        "modifyTimestamp",
+        "pwdPolicySubentry",
+        "gidNumber",
+        "memberUid"
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
     console.log("검색성공!" + results);
-    response.render('group_detail',{
+    response.render('detail/group_detail',{
       entry : results.entries[0]
     })
   }, (err)=>{

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>LDAP 기반 웹 애플리케이션</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+
+        <h1>dc = <%-entry.dc %></h1>
+        
+        <div>
+            o : <%-entry.o %> <br>
+            objectClass : <%-entry.objectClass %> <br>
+        </div>
+        <a href="/">메인으로</a>
+    </body>
+</html>

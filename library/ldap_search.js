@@ -9,7 +9,7 @@ const ldapOptions = {
     reconnect: true
 }
 
-let getUser = (baseDn,filterOption) =>{
+let getEntryData = (filterOption,options) =>{
     return new Promise( (resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
@@ -17,24 +17,7 @@ let getUser = (baseDn,filterOption) =>{
             config.pwdUserPassword,
             (err) => {
                 if (err) return reject(err);
-                let options = {
-                    attributes: [
-                        "cn",
-                        "sn",
-                        "uid",
-                        "ObjectClass",
-                        "createTimestamp",
-                        "modifyTimestamp",
-                        "pwdPolicySubentry",
-                        "gidNumber",
-                        "givenName",
-                        "homeDirectory",
-                        "uidNumber"
-                    ],
-                    scope: "sub",
-                    filter: filterOption
-                };
-                ldapClient.search(baseDn,options,(err,res)=>{
+                ldapClient.search(config.adSuffix,options,(err,res)=>{
                     if(err) return reject(err);
                     let entries = [];
                     res.on('searchEntry',(entry)=>{
@@ -66,5 +49,5 @@ let getUser = (baseDn,filterOption) =>{
 }
 
 module.exports = {
-    getUser
+    getEntryData
 };

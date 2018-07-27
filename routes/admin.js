@@ -15,7 +15,7 @@ router.get('/:cn',(request,response,next)=>{
   let baseDn = `cn=${cn},${config.adSuffix}`
   ldap_get_admin.getAdmin(baseDn,filter).then((results) => {
     console.log("검색성공!" + results);
-    response.render('admin_detail',{
+    response.render('detail/admin_detail',{
       entry : results.entries[0]
     })
   }, (err)=>{

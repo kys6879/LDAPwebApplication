@@ -1,8 +1,7 @@
 //       모듈 불러오기
 const express = require('express');
 const ldap_add_user = require('../library/ldap_add_user');
-const ldap_get_all = require('../library/ldap_get_all');
-const ldap_get_user = require('../library/ldap_get_user');
+const ldap_search = require('../library/ldap_search');
 const ldap_authenticate = require('../library/ldap_authenticate');
 const ldap_change_password = require('../library/ldap_change_password');
 const config = require('../config/config');
@@ -10,23 +9,50 @@ const router = express.Router();
 
 //       전체 유저 검색
 router.get('/',(request,response,next)=>{
-  let filter = "(ObjectClass=person)"
-  ldap_get_all.getAllRecords(filter).then((results)=>{
+  let filter = "(ObjectClass=person)";
+  let baseDn = `${config.adSuffix}`
+  let options = {
+    attributes: [
+        "cn",
+        "sn",
+        "uid",
+        "ObjectClass",
+        "createTimestamp",
+        "modifyTimestamp",
+        "pwdPolicySubentry",
+        "gidNumber",
+        "givenName",
+        "homeDirectory",
+        "uidNumber"
+    ],
+    scope: "sub",
+    filter: filter
+};
+ldap_search.getEntryData(baseDn,options).then((results)=>{
     console.log("검색성공!");
     response.render('user',{
       results : results
     })
   },(err)=>{
-    console.log("검색실패example",err);
-    response.send("검색실example패");
+    console.log("검색실패",err);
+    response.send("검색실패");
   }
 )
 });
 
 //       특정 유저 추가
 router.get('/add',(req,res,next)=>{
-  let filter = "(ObjectClass=posixGroup)"
-  ldap_get_all.getAllRecords(filter).then((results)=>{
+  let filter = "(ObjectClass=posixGroup)";
+  let baseDn = `${config.adSuffix}`
+  let options = {
+    attributes: [
+        "cn",
+        "ObjectClass",
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results)=>{
     console.log("검색성공!" + results);
     res.render('user_add',{
       results : results
@@ -87,10 +113,27 @@ router.put('/password',(req,res,next)=>{
 router.get('/:cn',(request,response,next)=>{
   let cn = request.params.cn;
   let filter = "(ObjectClass=person)";
-  let baseDn = `cn=${cn},ou=users,${config.adSuffix}`
-  ldap_get_user.getUser(baseDn,filter).then((results) => {
+  let baseDn = `cn=${cn},ou=users,${config.adSuffix}`;
+  let options = {
+    attributes: [
+        "cn",
+        "sn",
+        "uid",
+        "ObjectClass",
+        "createTimestamp",
+        "modifyTimestamp",
+        "pwdPolicySubentry",
+        "gidNumber",
+        "givenName",
+        "homeDirectory",
+        "uidNumber"
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
     console.log("검색성공!" + results);
-    response.render('user_detail',{
+    response.render('detail/user_detail',{
       entry : results.entries[0]
     })
   }, (err)=>{
