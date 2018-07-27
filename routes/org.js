@@ -10,7 +10,7 @@ router.get('/',(request,response,next)=>{
 // 특정 어드민 상세보기
 router.get('/:dc',(request,response,next)=>{
   let dc = request.params.dc;
-  let filter = "(ObjectClass=organization)";
+  let filter = `(&(ObjectClass=organization)(dc=${dc}))`;
   let baseDn = `${config.adSuffix}`;
   let options = {
     attributes: [

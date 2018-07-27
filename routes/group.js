@@ -11,8 +11,8 @@ router.get('/', function(req, res, next) {
 // 특정 그룹 상세보기
 router.get('/:cn',(request,response,next)=>{
   let cn = request.params.cn;
-  let filter = "(ObjectClass=posixGroup)";
-  let baseDn = `cn=${cn},ou=groups,${config.adSuffix}`;
+  let filter = `(&(ObjectClass=posixGroup)(cn=${cn}))`;
+  let baseDn = `${config.adSuffix}`;
   let options = {
     attributes: [
         "cn",

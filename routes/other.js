@@ -1,12 +1,12 @@
 const express = require('express');
 const ldap_search = require('../library/ldap_search');
+const config = require('../config/config');
 const router = express.Router();
 
-const adSuffix = "dc=example,dc=org"; // test.com
 
 router.get('/',(request,response,next)=>{
   let filter = "(ObjectClass=*)";
-
+  let baseDn = config.adSuffix;
   let options = {
     attributes: [
         "cn",
@@ -19,15 +19,15 @@ router.get('/',(request,response,next)=>{
         "gidNumber"
     ],
     scope: "sub",
-    filter: "(ObjectClass=*)"
+    filter: filter
 };
 
-  ldap_search.getEntryData(filter,options).then((results)=>{
+  ldap_search.getEntryData(baseDn,options).then((results)=>{
     let entriesstr = JSON.stringify(results.entries);
     response.render('other',{
       results : results,
       entriesstr : entriesstr,
-      adSuffix : adSuffix
+      adSuffix : config.adSuffix
     })
   },(err)=>{
     console.log("검색실패",err);

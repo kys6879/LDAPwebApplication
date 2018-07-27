@@ -41,26 +41,25 @@ let createParents = (r) =>{
 
     r.parentsDn = backDn;
 }
-let createRoutePath = (r) =>{
-    for(let i=0; i<r.objectClass.length; i++){
+let createRoutePath = (r) =>{ // kimyounngseo
+    for(let i=0; i<r.objectClass.length; i++){ 
         switch(r.objectClass[i]){
             case "organizationalUnit":
-                r.routePath = "/ou/"+r.ou;
+                r.routePath = `/ou/${r.ou}`;
                 break;
-            case "person":
-                r.routePath = "/user/"+r.cn;
+            case "inetOrgPerson":
+                r.routePath = `/user/${r.cn}`;
                 break;
             case "posixGroup":
-                r.routePath = "/group/"+r.cn;
+                r.routePath = `/group/${r.cn}`;
                 break;
             case "organization":
-                r.routePath = "/org/"+r.dc;
+                r.routePath = `/org/${r.dc}`;
                 break;
             case "organizationalRole":
-                r.routePath = "/admin/"+r.cn;
+                r.routePath = `/admin/${r.cn}`;
                 break;
-            
-        }                       
+        }
     }    
 }
 

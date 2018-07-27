@@ -11,8 +11,8 @@ router.get('/', function(req, res, next) {
 // 특정 어드민 상세보기
 router.get('/:cn',(request,response,next)=>{
   let cn = request.params.cn;
-  let filter = "(ObjectClass=organizationalRole)";
-  let baseDn = `cn=${cn},${config.adSuffix}`
+  let filter = `(&(ObjectClass=organizationalRole)(cn=${cn}))`;
+  let baseDn = `${config.adSuffix}`
   ldap_get_admin.getAdmin(baseDn,filter).then((results) => {
     console.log("검색성공!" + results);
     response.render('detail/admin_detail',{

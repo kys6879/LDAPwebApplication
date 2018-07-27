@@ -109,11 +109,30 @@ router.put('/password',(req,res,next)=>{
   } )
 })
 
+let findDn = (filter)=>{
+  let options = {
+    attributes: [
+        "cn",
+        "ObjectClass",
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(config.adSuffix,options).then((results)=>{
+    console.log("findDn 검색 성공 !");
+    res.send(results);
+
+  },(err)=>{
+    console.log("findDn 검색실패",err);
+    response.send("findDn 검색실패");    
+  })
+}
+
 // 특정 유저 상세보기
 router.get('/:cn',(request,response,next)=>{
-  let cn = request.params.cn;
-  let filter = "(ObjectClass=person)";
-  let baseDn = `cn=${cn},ou=users,${config.adSuffix}`;
+  let cn = request.params.cn ;
+  let filter = `(&(objectClass=person)(cn=${cn}))`
+  let baseDn = `${config.adSuffix}`;
   let options = {
     attributes: [
         "cn",

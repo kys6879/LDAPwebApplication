@@ -17,6 +17,13 @@
           <br>
 
           <script type="text/javascript">
+          function checkSpace(str) { 
+            if(str.search(/\s/) != -1) { 
+              return true ;
+              } else { 
+                return false; } 
+            }
+
             let d = new dTree('d');
             let entryLength="<%=results.entryLength%>";
 
@@ -28,6 +35,12 @@
                 if(beforeDn == "<%-adSuffix%>"){
                     d.add(beforeDn,-1,afterDn[0],entry.routePath);
                 }else{
+                    if(checkSpace(entry.routePath)){
+                      let str =  entry.routePath;
+                      str.replace("/", "?");
+                      document.write(str);
+                      d.add(beforeDn,entry.parentsDn,afterDn[0],str);
+                    }
                     d.add(beforeDn,entry.parentsDn,afterDn[0],entry.routePath);
                 }
             });
