@@ -13,7 +13,8 @@ const groupsRouter = require('./routes/group');
 const organizationalUnitsRouter = require('./routes/orgunit');
 const otherRouter = require('./routes/other');
 const monitoringRouter = require('./routes/monitoring');
-
+const adminRouter = require('./routes/admin');
+const organizationRouter = require('./routes/org');
 const app = express();
 
 //       템플릿 엔진 설정
@@ -36,6 +37,8 @@ app.use('/group', groupsRouter);
 app.use('/ou', organizationalUnitsRouter);
 app.use('/other', otherRouter);
 app.use('/monitor', monitoringRouter);
+app.use('/admin', adminRouter);
+app.use('/org',organizationRouter);
 
 //       404 에러 핸들링
 app.use((req,res,next)=>{
