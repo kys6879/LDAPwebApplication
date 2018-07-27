@@ -2,8 +2,10 @@
 const express = require('express');
 const ldap_add_user = require('../library/ldap_add_user');
 const ldap_get_all = require('../library/ldap_get_all');
+const ldap_get_user = require('../library/ldap_get_user');
 const ldap_authenticate = require('../library/ldap_authenticate');
 const ldap_change_password = require('../library/ldap_change_password');
+const config = require('../config/config');
 const router = express.Router();
 
 //       전체 유저 검색
@@ -15,8 +17,8 @@ router.get('/',(request,response,next)=>{
       results : results
     })
   },(err)=>{
-    console.log("검색실패",err);
-    response.send("검색실패");
+    console.log("검색실패example",err);
+    response.send("검색실example패");
   }
 )
 });
@@ -81,9 +83,37 @@ router.put('/password',(req,res,next)=>{
   } )
 })
 
+// 특정 유저 상세보기
 router.get('/:cn',(request,response,next)=>{
   let cn = request.params.cn;
-  response.send(""+cn);
+  let filter = "(ObjectClass=person)";
+  let baseDn = `cn=${cn},ou=users,${config.adSuffix}`
+  ldap_get_user.getUser(baseDn,filter).then((results) => {
+    console.log("검색성공!" + results);
+    response.render('user_detail',{
+      entry : results.entries[0]
+    })
+  }, (err)=>{
+      console.log("검색실패",err);
+      response.send("검색실패");
+  })
+
+  
 }); 
+
+//       특정 유저 추가
+// router.get('/add',(req,res,next)=>{
+//   let filter = "(ObjectClass=posixGroup)"
+//   ldap_get_all.getAllRecords(filter).then((results)=>{
+//     console.log("검색성공!" + results);
+//     res.render('user_add',{
+//       results : results
+//     })
+//   },(err)=>{
+//     console.log("검색실패",err);
+//     res.send("검색실패");
+//   }
+// )  
+// })
 
 module.exports = router;
