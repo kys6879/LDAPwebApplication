@@ -5,8 +5,8 @@ let createDetailObjectClass = (r) =>{
             case "organizationalUnit":
                 r.detailObjectClass = "organizationalUnit";
                 break;
-            case "person":
-                r.detailObjectClass = "person";
+            case "inetOrgPerson":
+                r.detailObjectClass = "inetOrgPerson";
                 break;
             case "posixGroup":
                 r.detailObjectClass = "posixGroup";
@@ -45,19 +45,19 @@ let createRoutePath = (r) =>{ // kimyounngseo
     for(let i=0; i<r.objectClass.length; i++){ 
         switch(r.objectClass[i]){
             case "organizationalUnit":
-                r.routePath = `/ou/${r.ou}`;
+                r.routePath = `/ou/${r.ou}/web`;
                 break;
             case "inetOrgPerson":
-                r.routePath = `/user/${r.cn}`;
+                r.routePath = `/user/${r.cn}/web`;
                 break;
             case "posixGroup":
-                r.routePath = `/group/${r.cn}`;
+                r.routePath = `/group/${r.cn}/web`;
                 break;
             case "organization":
-                r.routePath = `/org/${r.dc}`;
+                r.routePath = `/org/${r.dc}/web`;
                 break;
             case "organizationalRole":
-                r.routePath = `/admin/${r.cn}`;
+                r.routePath = `/admin/${r.cn}/web`;
                 break;
         }
     }    

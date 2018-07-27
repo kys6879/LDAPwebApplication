@@ -7,9 +7,9 @@ const ldap_change_password = require('../library/ldap_change_password');
 const config = require('../config/config');
 const router = express.Router();
 
-//       전체 유저 검색
+//       전체 유저 보기 (JSON)
 router.get('/',(request,response,next)=>{
-  let filter = "(ObjectClass=person)";
+  let filter = "(ObjectClass=inetOrgPerson)";
   let baseDn = `${config.adSuffix}`
   let options = {
     attributes: [
@@ -30,9 +30,7 @@ router.get('/',(request,response,next)=>{
 };
 ldap_search.getEntryData(baseDn,options).then((results)=>{
     console.log("검색성공!");
-    response.render('user',{
-      results : results
-    })
+    response.json(results.entries);
   },(err)=>{
     console.log("검색실패",err);
     response.send("검색실패");
@@ -40,7 +38,7 @@ ldap_search.getEntryData(baseDn,options).then((results)=>{
 )
 });
 
-//       특정 유저 추가
+//       특정 유저 추가 WEB
 router.get('/add',(req,res,next)=>{
   let filter = "(ObjectClass=posixGroup)";
   let baseDn = `${config.adSuffix}`
@@ -63,7 +61,7 @@ router.get('/add',(req,res,next)=>{
   }
 )  
 })
-
+//       특정 유저 추가
 router.post('/add',(req,res,next)=>{
   let gn = req.body.gn;
   let sn = req.body.sn;
@@ -109,27 +107,39 @@ router.put('/password',(req,res,next)=>{
   } )
 })
 
-let findDn = (filter)=>{
+// 특정 유저 상세보기 JSON
+router.get('/:cn',(request,response,next)=>{
+  let cn = request.params.cn ;
+  let filter = `(&(objectClass=person)(cn=${cn}))`
+  let baseDn = `${config.adSuffix}`;
   let options = {
     attributes: [
         "cn",
+        "sn",
+        "uid",
         "ObjectClass",
+        "createTimestamp",
+        "modifyTimestamp",
+        "pwdPolicySubentry",
+        "gidNumber",
+        "givenName",
+        "homeDirectory",
+        "uidNumber"
     ],
     scope: "sub",
     filter: filter
 };
-  ldap_search.getEntryData(config.adSuffix,options).then((results)=>{
-    console.log("findDn 검색 성공 !");
-    res.send(results);
-
-  },(err)=>{
-    console.log("findDn 검색실패",err);
-    response.send("findDn 검색실패");    
+  ldap_search.getEntryData(baseDn,options).then((results) => {
+    console.log("검색성공!" + results);
+    response.json(results.entries);
+  }, (err)=>{
+      console.log("검색실패",err);
+      response.send("검색실패");
   })
-}
+}); 
 
-// 특정 유저 상세보기
-router.get('/:cn',(request,response,next)=>{
+// 특정 유저 상세보기 WEB
+router.get('/:cn/web',(request,response,next)=>{
   let cn = request.params.cn ;
   let filter = `(&(objectClass=person)(cn=${cn}))`
   let baseDn = `${config.adSuffix}`;
