@@ -22,8 +22,6 @@ router.get('/:cn',(request,response,next)=>{
       console.log("검색실패",err);
       response.send("검색실패");
   })
-
-  
 }); 
 
 module.exports = router;
