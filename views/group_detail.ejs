@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>LDAP 기반 웹 애플리케이션</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+
+        <h1>cn =<%-entry.cn %></h1>
+        
+        <div>
+            cn : <%-entry.cn %> <br>
+            gidNumber : <%-entry.gidNumber %> <br>
+            objectClass : <%-entry.objectClass %> <br>
+            <% if(entry.memberUid){ %>
+                memberUid : <%-entry.memberUid %>
+                <%}%>
+        </div>
+        <a href="/">메인으로</a>
+    </body>
+</html>

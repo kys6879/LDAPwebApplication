@@ -97,23 +97,7 @@ router.get('/:cn',(request,response,next)=>{
       console.log("검색실패",err);
       response.send("검색실패");
   })
-
-  
 }); 
 
-//       특정 유저 추가
-// router.get('/add',(req,res,next)=>{
-//   let filter = "(ObjectClass=posixGroup)"
-//   ldap_get_all.getAllRecords(filter).then((results)=>{
-//     console.log("검색성공!" + results);
-//     res.render('user_add',{
-//       results : results
-//     })
-//   },(err)=>{
-//     console.log("검색실패",err);
-//     res.send("검색실패");
-//   }
-// )  
-// })
 
 module.exports = router;
