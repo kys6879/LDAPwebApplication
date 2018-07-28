@@ -8,29 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="dtree">
-
-        <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
-        <br>
-        <script type="text/javascript">
-            let d = new dTree('d');
-            let entryLength="<%=results.entryLength%>";
-
-            let entries = JSON.parse('<%-entriesstr %>');
-            
-            entries.forEach((entry,i) => {
-                let beforeDn = entry.dn;
-                let afterDn = beforeDn.split(',');
-                if(beforeDn == "<%-adSuffix%>"){
-                    d.add(beforeDn,-1,afterDn[0]);
-                }else{
-                    d.add(beforeDn,entry.parentsDn,afterDn[0]);
-                }
-            });
-
-            document.write(d);
-        </script>
-    </div>    
+    
 </body>
 
 </html>

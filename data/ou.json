@@ -1,0 +1,41 @@
+[
+  {
+    "dn": "ou=groups,dc=example,dc=org",
+    "controls": [],
+    "ou": "groups",
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/ou/groups/web"
+  },
+  {
+    "dn": "ou=users,dc=example,dc=org",
+    "controls": [],
+    "ou": "users",
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/ou/users/web"
+  },
+  {
+    "dn": "ou=testou,ou=groups,dc=example,dc=org",
+    "controls": [],
+    "ou": "testou",
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 1,
+    "parentsDn": "ou=groups,dc=example,dc=org",
+    "routePath": "/ou/testou/web"
+  }
+]

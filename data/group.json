@@ -1,0 +1,35 @@
+[
+  {
+    "dn": "cn=dev,ou=groups,dc=example,dc=org",
+    "controls": [],
+    "cn": "dev",
+    "gidNumber": "500",
+    "objectClass": [
+      "posixGroup",
+      "top"
+    ],
+    "createTimestamp": "20180726024643Z",
+    "modifyTimestamp": "20180726024643Z",
+    "detailObjectClass": "posixGroup",
+    "treeLevel": 1,
+    "parentsDn": "ou=groups,dc=example,dc=org",
+    "routePath": "/group/dev/web"
+  },
+  {
+    "dn": "cn=admin,ou=groups,dc=example,dc=org",
+    "controls": [],
+    "cn": "admin",
+    "gidNumber": "503",
+    "memberUid": "kyoungseo",
+    "objectClass": [
+      "posixGroup",
+      "top"
+    ],
+    "createTimestamp": "20180726144939Z",
+    "modifyTimestamp": "20180726144939Z",
+    "detailObjectClass": "posixGroup",
+    "treeLevel": 1,
+    "parentsDn": "ou=groups,dc=example,dc=org",
+    "routePath": "/group/admin/web"
+  }
+]

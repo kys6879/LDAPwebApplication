@@ -11,8 +11,14 @@
       <div class="dtree">
         
       <h1>모든 정보 가져오기</h1>
-      <p><a href="javascript: d.openAll();">모두 열기</a> | <a href="javascript: d.closeAll();">모두 닫기</a></p>
-        결과 : <br>
+
+      <a href="/option/export/web">===정보 내보내기===</a><br>
+
+      <p>
+        <a href="javascript: d.openAll();">모두 열기</a> | <a href="javascript: d.closeAll();">모두 닫기</a>
+      </p>
+
+        결과 : <br> 
           --------------
           <br>
 
@@ -28,19 +34,12 @@
             let entryLength="<%=results.entryLength%>";
 
             let entries = JSON.parse('<%-entriesstr %>');
-            
             entries.forEach((entry,i) => {
                 let beforeDn = entry.dn;
                 let afterDn = beforeDn.split(',');
                 if(beforeDn == "<%-adSuffix%>"){
                     d.add(beforeDn,-1,afterDn[0],entry.routePath);
                 }else{
-                    if(checkSpace(entry.routePath)){
-                      let str =  entry.routePath;
-                      str.replace("/", "?");
-                      document.write(str);
-                      d.add(beforeDn,entry.parentsDn,afterDn[0],str);
-                    }
                     d.add(beforeDn,entry.parentsDn,afterDn[0],entry.routePath);
                 }
             });

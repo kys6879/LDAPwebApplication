@@ -1,0 +1,229 @@
+[
+  {
+    "dn": "dc=example,dc=org",
+    "controls": [],
+    "objectClass": [
+      "top",
+      "dcObject",
+      "organization"
+    ],
+    "dc": "example",
+    "createTimestamp": "20180726022144Z",
+    "modifyTimestamp": "20180726022144Z",
+    "detailObjectClass": "organization",
+    "treeLevel": -1,
+    "parentsDn": "king",
+    "routePath": "/org/example/web"
+  },
+  {
+    "dn": "cn=admin,dc=example,dc=org",
+    "controls": [],
+    "objectClass": [
+      "simpleSecurityObject",
+      "organizationalRole"
+    ],
+    "cn": "admin",
+    "createTimestamp": "20180726022144Z",
+    "modifyTimestamp": "20180726022144Z",
+    "detailObjectClass": "organizationalRole",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/admin/admin/web"
+  },
+  {
+    "dn": "ou=groups,dc=example,dc=org",
+    "controls": [],
+    "ou": "groups",
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "createTimestamp": "20180726023453Z",
+    "modifyTimestamp": "20180726023453Z",
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/ou/groups/web"
+  },
+  {
+    "dn": "ou=users,dc=example,dc=org",
+    "controls": [],
+    "ou": "users",
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "createTimestamp": "20180726024519Z",
+    "modifyTimestamp": "20180726024519Z",
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/ou/users/web"
+  },
+  {
+    "dn": "cn=dev,ou=groups,dc=example,dc=org",
+    "controls": [],
+    "cn": "dev",
+    "gidNumber": "500",
+    "objectClass": [
+      "posixGroup",
+      "top"
+    ],
+    "createTimestamp": "20180726024643Z",
+    "modifyTimestamp": "20180726024643Z",
+    "detailObjectClass": "posixGroup",
+    "treeLevel": 1,
+    "parentsDn": "ou=groups,dc=example,dc=org",
+    "routePath": "/group/dev/web"
+  },
+  {
+    "dn": "cn=KimYoungeo,ou=users,dc=example,dc=org",
+    "controls": [],
+    "cn": "KimYoungeo",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726024659Z",
+    "gidNumber": "503",
+    "modifyTimestamp": "20180726145010Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/KimYoungeo/web"
+  },
+  {
+    "dn": "cn=LeeYonghyun,ou=users,dc=example,dc=org",
+    "controls": [],
+    "cn": "LeeYonghyun",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726035832Z",
+    "gidNumber": "500",
+    "modifyTimestamp": "20180726145130Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/LeeYonghyun/web"
+  },
+  {
+    "dn": "cn=Kimissac,ou=users,dc=example,dc=org",
+    "controls": [],
+    "cn": "Kimissac",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726133851Z",
+    "gidNumber": "500",
+    "modifyTimestamp": "20180726145119Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/Kimissac/web"
+  },
+  {
+    "dn": "cn=AnYoongook,ou=users,dc=example,dc=org",
+    "controls": [],
+    "gidNumber": "501",
+    "cn": "AnYoongook",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726142055Z",
+    "modifyTimestamp": "20180726142055Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/AnYoongook/web"
+  },
+  {
+    "dn": "cn=Kimyunyeop,ou=users,dc=example,dc=org",
+    "controls": [],
+    "gidNumber": "501",
+    "cn": "Kimyunyeop",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726142948Z",
+    "modifyTimestamp": "20180726142948Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/Kimyunyeop/web"
+  },
+  {
+    "dn": "cn=admin,ou=groups,dc=example,dc=org",
+    "controls": [],
+    "cn": "admin",
+    "gidNumber": "503",
+    "objectClass": [
+      "posixGroup",
+      "top"
+    ],
+    "createTimestamp": "20180726144939Z",
+    "modifyTimestamp": "20180726144939Z",
+    "detailObjectClass": "posixGroup",
+    "treeLevel": 1,
+    "parentsDn": "ou=groups,dc=example,dc=org",
+    "routePath": "/group/admin/web"
+  },
+  {
+    "dn": "cn=SinDoyun,ou=users,dc=example,dc=org",
+    "controls": [],
+    "gidNumber": "500",
+    "cn": "SinDoyun",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726152631Z",
+    "modifyTimestamp": "20180726152631Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/SinDoyun/web"
+  },
+  {
+    "dn": "ou=testou,ou=groups,dc=example,dc=org",
+    "controls": [],
+    "ou": "testou",
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "createTimestamp": "20180727103603Z",
+    "modifyTimestamp": "20180727103603Z",
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 1,
+    "parentsDn": "ou=groups,dc=example,dc=org",
+    "routePath": "/ou/testou/web"
+  },
+  {
+    "dn": "cn=Choi Munsuck,dc=example,dc=org",
+    "controls": [],
+    "cn": "Choi Munsuck",
+    "gidNumber": "500",
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount",
+      "top"
+    ],
+    "createTimestamp": "20180727110926Z",
+    "modifyTimestamp": "20180727110926Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/user/Choi Munsuck/web"
+  }
+]

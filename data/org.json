@@ -1,0 +1,16 @@
+[
+  {
+    "dn": "dc=example,dc=org",
+    "controls": [],
+    "objectClass": [
+      "top",
+      "dcObject",
+      "organization"
+    ],
+    "dc": "example",
+    "detailObjectClass": "organization",
+    "treeLevel": -1,
+    "parentsDn": "king",
+    "routePath": "/org/example/web"
+  }
+]

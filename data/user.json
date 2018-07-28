@@ -1,0 +1,156 @@
+[
+  {
+    "dn": "cn=KimYoungeo,ou=users,dc=example,dc=org",
+    "controls": [],
+    "givenName": "Kim",
+    "sn": "Youngeo",
+    "uid": "kyoungseo",
+    "uidNumber": "1000",
+    "cn": "KimYoungeo",
+    "homeDirectory": "/home/users/kyoungseo",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726024659Z",
+    "gidNumber": "503",
+    "modifyTimestamp": "20180726145010Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/KimYoungeo/web"
+  },
+  {
+    "dn": "cn=LeeYonghyun,ou=users,dc=example,dc=org",
+    "controls": [],
+    "givenName": "Lee",
+    "sn": "Yonghyun",
+    "uid": "lyonghyun",
+    "uidNumber": "1001",
+    "cn": "LeeYonghyun",
+    "homeDirectory": "/home/users/lyonghyun",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726035832Z",
+    "gidNumber": "500",
+    "modifyTimestamp": "20180726145130Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/LeeYonghyun/web"
+  },
+  {
+    "dn": "cn=Kimissac,ou=users,dc=example,dc=org",
+    "controls": [],
+    "givenName": "Kim",
+    "sn": "issac",
+    "uid": "kissac",
+    "uidNumber": "1002",
+    "cn": "Kimissac",
+    "homeDirectory": "/home/users/kissac",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726133851Z",
+    "gidNumber": "500",
+    "modifyTimestamp": "20180726145119Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/Kimissac/web"
+  },
+  {
+    "dn": "cn=AnYoongook,ou=users,dc=example,dc=org",
+    "controls": [],
+    "givenName": "An",
+    "sn": "Yoongook",
+    "uid": "Ayoongook",
+    "gidNumber": "501",
+    "uidNumber": "1003",
+    "cn": "AnYoongook",
+    "homeDirectory": "/home/users/Ayoongook",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726142055Z",
+    "modifyTimestamp": "20180726142055Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/AnYoongook/web"
+  },
+  {
+    "dn": "cn=Kimyunyeop,ou=users,dc=example,dc=org",
+    "controls": [],
+    "givenName": "Kim",
+    "sn": "yunyeop",
+    "uid": "kyunyeop",
+    "gidNumber": "501",
+    "uidNumber": "1004",
+    "cn": "Kimyunyeop",
+    "homeDirectory": "/home/users/kyunyeop",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726142948Z",
+    "modifyTimestamp": "20180726142948Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/Kimyunyeop/web"
+  },
+  {
+    "dn": "cn=SinDoyun,ou=users,dc=example,dc=org",
+    "controls": [],
+    "givenName": "Sin",
+    "sn": "Doyun",
+    "uid": "sdoyun",
+    "gidNumber": "500",
+    "uidNumber": "1005",
+    "cn": "SinDoyun",
+    "homeDirectory": "/home/users/sdoyun",
+    "objectClass": [
+      "person",
+      "posixAccount",
+      "inetOrgPerson"
+    ],
+    "createTimestamp": "20180726152631Z",
+    "modifyTimestamp": "20180726152631Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 1,
+    "parentsDn": "ou=users,dc=example,dc=org",
+    "routePath": "/user/SinDoyun/web"
+  },
+  {
+    "dn": "cn=Choi Munsuck,dc=example,dc=org",
+    "controls": [],
+    "givenName": "Choi",
+    "sn": "Munsuck",
+    "cn": "Choi Munsuck",
+    "uid": "cmunsuck",
+    "uidNumber": "1006",
+    "gidNumber": "500",
+    "homeDirectory": "/home/users/cmunsuck",
+    "objectClass": [
+      "inetOrgPerson",
+      "posixAccount",
+      "top"
+    ],
+    "createTimestamp": "20180727110926Z",
+    "modifyTimestamp": "20180727110926Z",
+    "detailObjectClass": "inetOrgPerson",
+    "treeLevel": 0,
+    "parentsDn": "dc=example,dc=org",
+    "routePath": "/user/Choi Munsuck/web"
+  }
+]

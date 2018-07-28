@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+        <a onclick="getData('/other','other');">모든 정보 내보내기</a> <br>
+        <a onclick="getData('/user','user');">유저 정보 내보내기</a> <br>
+        <a onclick="getData('/group','group');">그룹 정보 내보내기</a> <br>
+        <a onclick="getData('/ou','ou');">조직 정보 내보내기</a> <br>
+        <a onclick="getData('/admin','admin');">어드민 정보 내보내기</a> <br>
+        <a onclick="getData('/org','org');">최상위조직 정보 내보내기</a> <br>
+
+        <button onclick="exportButton()" id="exportbutton">확인한 결과를 내보내기</button>
+        <pre>
+        <div id="result">
+            
+        </div>
+    </pre>
+    
+    <script>
+        $('#exportbutton').hide();
+        let results = "";
+        let kinds = "";
+        function getData(url,kind) {
+            $.ajax({
+                url: url,
+                dataType: 'json',                
+                type: 'GET',     
+                    success: function(result) {
+                        results = result;
+                        kinds = kind;
+                        $('#exportbutton').show();
+                        $('#result').text( JSON.stringify(result,null,2));
+                    } 
+                    }); 
+        }
+        function exportButton() {
+            console.log("에이젝스  " +kinds);
+            $.ajax({
+                url: '/option/export',          
+                dataType: 'json',                
+                type: 'POST',
+                data : {'entries' : JSON.stringify(results,null,2),
+                        'kind' : kinds},
+                    success: function(result) {
+                        if(result['result'] == true){
+                            alert("성공");
+                        }
+                    } 
+                    }); 
+            
+        }
+    </script>
+
+</body>
+
+</html>
