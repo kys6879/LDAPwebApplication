@@ -38,16 +38,19 @@ GET /user/add/web
 POST /user/add
 POST /user/bind
 PUT /user/password
+DELETE /user/:cn
 
 #Ou
 GET /ou
 GET /ou/:ou
 GET /ou/:ou/web
+DELETE /ou/:ou
 
 #Group
 GET /group
 GET /group/:cn
 GET /group/:cn/web
+DELETE /group/:cn
 
 #Admin
 GET /admin
