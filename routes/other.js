@@ -13,9 +13,6 @@ router.get('/',(request,response,next)=>{
         "ou",
         "dc",
         "ObjectClass",
-        "createTimestamp",
-        "modifyTimestamp",
-        "pwdPolicySubentry",
         "gidNumber"
     ],
     scope: "sub",
@@ -40,9 +37,6 @@ router.get('/web',(request,response,next)=>{
         "ou",
         "dc",
         "ObjectClass",
-        "createTimestamp",
-        "modifyTimestamp",
-        "pwdPolicySubentry",
         "gidNumber"
     ],
     scope: "sub",
