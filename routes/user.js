@@ -39,7 +39,7 @@ ldap_search.getEntryData(baseDn,options).then((results)=>{
 });
 
 //       특정 유저 추가 WEB
-router.get('/add',(req,res,next)=>{
+router.get('/add/web',(req,res,next)=>{
   let filter = "(ObjectClass=posixGroup)";
   let baseDn = `${config.adSuffix}`
   let options = {
@@ -80,7 +80,7 @@ router.post('/add',(req,res,next)=>{
 })
 
 //       특정 유저 인증
-router.post('/auth',(req,res,next)=>{
+router.post('/bind',(req,res,next)=>{
   let uid = req.body.uid;
   let password = req.body.password;
   ldap_authenticate.authenticate(uid,password).then(()=>{
