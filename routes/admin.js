@@ -1,15 +1,23 @@
 const express = require('express');
 const config = require('../config/config');
-const ldap_get_admin = require('../library/ldap_get_admin');
+const ldap_search = require('../library/ldap_search');
 const router = express.Router();
 
 // 전체 어드민 보기 JSON
 router.get('/', function(request, response, next) {
-  let cn = request.params.cn;
   let filter = `(ObjectClass=organizationalRole)`;
-  let baseDn = `${config.adSuffix}`
-  ldap_get_admin.getAdmin(baseDn,filter).then((results) => {
-    console.log("검색성공!" + results);
+  let baseDn = `${config.adSuffix}`;
+  let options = {
+    attributes: [
+      "ObjectClass",
+      "cn",
+      "description"
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
+    console.log("!" + results);
     response.json(results.entries);
   }, (err)=>{
       console.log("검색실패",err);
@@ -22,7 +30,16 @@ router.get('/:cn',(request,response,next)=>{
   let cn = request.params.cn;
   let filter = `(&(ObjectClass=organizationalRole)(cn=${cn}))`;
   let baseDn = `${config.adSuffix}`
-  ldap_get_admin.getAdmin(baseDn,filter).then((results) => {
+  let options = {
+    attributes: [
+      "cn",
+      "ObjectClass",
+      "description"
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
     console.log("검색성공!" + results);
     response.json(results.entries);
   }, (err)=>{
@@ -35,8 +52,17 @@ router.get('/:cn',(request,response,next)=>{
 router.get('/:cn/web',(request,response,next)=>{
   let cn = request.params.cn;
   let filter = `(&(ObjectClass=organizationalRole)(cn=${cn}))`;
-  let baseDn = `${config.adSuffix}`
-  ldap_get_admin.getAdmin(baseDn,filter).then((results) => {
+  let baseDn = `${config.adSuffix}`;
+  let options = {
+    attributes: [
+      "cn",
+      "ObjectClass",
+      "description"
+    ],
+    scope: "sub",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
     console.log("검색성공!" + results);
     response.render('detail/admin_detail',{
       entry : results.entries[0]
