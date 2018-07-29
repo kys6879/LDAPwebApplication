@@ -21,36 +21,49 @@
         결과 : <br> 
           --------------
           <br>
-
+          
+          <script>
+              function checkSpace(str) { 
+                if(str.search(/\s/) != -1) { 
+                  return true ;
+                  } else { 
+                    return false; } 
+              }
+              function createNewEntry(entry) {
+                  let dn = entry.dn;
+                  if(dn == "<%-adSuffix%>"){
+                    d.add("create","<%-adSuffix%>","생성하기","/create"); 
+                  }
+                  if(dn.split('=')[0] == "ou"  ){
+                    d.add("create",dn,"생성하기","/create"); 
+                  }
+              }
+          </script>
           <script type="text/javascript">
-          function checkSpace(str) { 
-            if(str.search(/\s/) != -1) { 
-              return true ;
-              } else { 
-                return false; } 
-            }
-
             let d = new dTree('d');
             let entryLength="<%=results.entryLength%>";
-
             let entries = JSON.parse('<%-entriesstr %>');
+            let loadEntry = false;
+
             entries.forEach((entry,i) => {
                 let beforeDn = entry.dn;
                 let afterDn = beforeDn.split(',');
-                if(beforeDn == "<%-adSuffix%>"){
+                if(beforeDn == "<%-adSuffix%>"){ // 최상위 조직일경우 부모참조는 -1
                     d.add(beforeDn,-1,afterDn[0],entry.routePath);
-                }else{
-                    d.add(beforeDn,entry.parentsDn,afterDn[0],entry.routePath);
-                }
+                } 
+                d.add(beforeDn,entry.parentsDn,afterDn[0],entry.routePath);
+                // createNewEntry(entry);
             });
-
+            entries.forEach((entry,i) => {
+              createNewEntry(entry);
+            });
             document.write(d);
         </script>
-          
           <br>
         필터 : <%-results.filterOption %> <br>
         개수 : <%-results.entryLength %> <br>
     <a href="/">메인으로</a>
   </div>
+  
   </body>
 </html>
