@@ -35,9 +35,9 @@ let getEntryData = (baseDn,options) =>{
                     });
                     res.on('end',()=>{
                         let results = {
-                            entries : entries,
-                            filterOption : options.filter,
-                            entryLength : entries.length
+                            entries : entries, // 엔트리들의 객체
+                            filterOption : options.filter, // 검색에 사용된 필터
+                            entryLength : entries.length // 엔트리의 개수
                         }
                         console.log(results.entries);
                         resolve(results);

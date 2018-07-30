@@ -41,7 +41,8 @@ let createParents = (r) =>{
 
     r.parentsDn = backDn;
 }
-let createRoutePath = (r) =>{ // kimyounngseo
+let createRoutePath = (r) =>{
+    console.log(`router ${r.objectClass.length}`);
     for(let i=0; i<r.objectClass.length; i++){ 
         switch(r.objectClass[i]){
             case "organizationalUnit":

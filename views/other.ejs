@@ -17,11 +17,9 @@
       <p>
         <a href="javascript: d.openAll();">모두 열기</a> | <a href="javascript: d.closeAll();">모두 닫기</a>
       </p>
-
         결과 : <br> 
           --------------
           <br>
-          
           <script>
               function checkSpace(str) { 
                 if(str.search(/\s/) != -1) { 
@@ -44,19 +42,21 @@
             let entryLength="<%=results.entryLength%>";
             let entries = JSON.parse('<%-entriesstr %>');
             let loadEntry = false;
-
             entries.forEach((entry,i) => {
-                let beforeDn = entry.dn;
-                let afterDn = beforeDn.split(',');
-                if(beforeDn == "<%-adSuffix%>"){ // 최상위 조직일경우 부모참조는 -1
-                    d.add(beforeDn,-1,afterDn[0],entry.routePath);
-                } 
-                d.add(beforeDn,entry.parentsDn,afterDn[0],entry.routePath);
-                // createNewEntry(entry);
+                let dn = entry.dn;
+                let viewDn = dn.split(',');
+
+                if(dn == "<%-adSuffix%>"){ // 최상위 조직일경우 부모참조는 -1
+                    d.add(dn  ,  -1  ,  viewDn[0]  ,  entry.routePath  );
+                }
+
+                d.add(dn  ,  entry.parentsDn  ,  viewDn[0]  ,  entry.routePath);
+                
             });
             entries.forEach((entry,i) => {
               createNewEntry(entry);
             });
+
             document.write(d);
         </script>
           <br>

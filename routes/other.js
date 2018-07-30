@@ -41,6 +41,7 @@ router.get('/web',(request,response,next)=>{
     scope: "sub",
     filter: filter
 };
+  // 모든 데이터 검색 (ObjectClass=*)
   ldap_search.getEntryData(baseDn,options).then((results)=>{
     let entriesstr = JSON.stringify(results.entries);
     response.render('other',{
