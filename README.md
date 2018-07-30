@@ -44,12 +44,14 @@ DELETE /user/:cn
 GET /ou
 GET /ou/:ou
 GET /ou/:ou/web
+POST /ou/add
 DELETE /ou/:ou
 
 #Group
 GET /group
 GET /group/:cn
 GET /group/:cn/web
+POST /group/add
 DELETE /group/:cn
 
 #Admin
