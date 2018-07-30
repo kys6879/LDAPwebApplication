@@ -16,14 +16,14 @@
         </div>
         <button onclick="deleteButton('<%-entry.ou%>')" id="deleteButton">삭제하기</button> <br>
         <script>
-            function deleteButton(ou) {
+            let deleteButton = (ou) => {
                 console.log("에이젝스 delete  " +ou);
                 $.ajax({
                     url: '/ou/'+ou,          
                     dataType: 'json',                
                     type: 'DELETE',
                     data : {},
-                        success: function(result) {
+                        success: (result) => {
                             if(result['result'] == true){
                                 alert("성공");
                                 location.href="/other/web";

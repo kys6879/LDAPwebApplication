@@ -6,7 +6,7 @@ const ldapOptions = {
     url: config.server,
     connectTimeout: 30000,
     reconnect: true
-}
+};
 
 let addEntry = (dn,entry) => {
     return new Promise((resolve,reject) =>{
@@ -25,11 +25,9 @@ let addEntry = (dn,entry) => {
                             return reject(err)
                         }
                         return resolve(Response);
-                    }
-                )
-            }
-        )
-    } )
+                    });
+            });
+    });
 }
 
 module.exports = {

@@ -26,12 +26,12 @@
         $('#exportbutton').hide();
         let results = "";
         let kinds = "";
-        function getData(url,kind) {
+        let getData = (url,kind) => {
             $.ajax({
                 url: url,
                 dataType: 'json',                
                 type: 'GET',     
-                    success: function(result) {
+                    success: (result) => {
                         results = result;
                         kinds = kind;
                         $('#exportbutton').show();
@@ -39,7 +39,7 @@
                     } 
                     }); 
         }
-        function exportButton() {
+        let exportButton = () => {
             console.log("에이젝스  " +kinds);
             $.ajax({
                 url: '/option/export',          
@@ -47,7 +47,7 @@
                 type: 'POST',
                 data : {'entries' : JSON.stringify(results,null,2),
                         'kind' : kinds},
-                    success: function(result) {
+                    success: (result) => {
                         if(result['result'] == true){
                             alert("성공");
                         }

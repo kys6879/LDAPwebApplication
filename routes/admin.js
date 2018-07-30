@@ -4,7 +4,7 @@ const ldap_search = require('../library/ldap_search');
 const router = express.Router();
 
 // 전체 어드민 보기 JSON
-router.get('/', function(request, response, next) {
+router.get('/',(request, response, next) => {
   let filter = `(ObjectClass=organizationalRole)`;
   let baseDn = `${config.adSuffix}`;
   let options = {
@@ -22,7 +22,7 @@ router.get('/', function(request, response, next) {
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 });
 
 // 특정 어드민 상세보기 JSON
@@ -45,7 +45,7 @@ router.get('/:cn',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 // 특정 어드민 상세보기 WEB
@@ -70,7 +70,7 @@ router.get('/:cn/web',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 

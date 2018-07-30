@@ -21,7 +21,7 @@ router.get('/',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 // 특정 최상위 조직 상세보기 JSON
@@ -44,7 +44,7 @@ router.get('/:dc',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 // 특정 최상위 조직 상세보기 WEB
@@ -69,7 +69,7 @@ router.get('/:dc/web',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 module.exports = router;

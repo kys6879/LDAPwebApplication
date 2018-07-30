@@ -21,7 +21,7 @@
         이름 <input type="text" name="sn" placeholder="sn" style="margin-left: 25px"> <br>
         대표이름 <input type="text" name="displayName" placeholder="displayName"> <br>
         그룹 : <select name="gidNumber">
-            <% for(var i =0 ;i<length; i++){ %>
+            <% for(let i =0 ;i<length; i++){ %>
                 <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
             <% } %>
         </select>
@@ -30,7 +30,6 @@
         비밀번호 <input type="password" name="password" placeholder="password"> <br>
         <input type="hidden" name="userdn" value="<%-dn%>" > <br>
         <input type="submit" value="생성">
-        <%-dn%>
       </form>
     </div>
   </body>

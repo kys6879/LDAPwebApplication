@@ -21,13 +21,13 @@
           --------------
           <br>
           <script>
-              function checkSpace(str) { 
+              let checkSpace = (str) => { 
                 if(str.search(/\s/) != -1) { 
                   return true ;
                   } else { 
                     return false; } 
               }
-              function createNewEntry(entry) {
+              let createNewEntry = (entry) => {
                   let dn = entry.dn;
                   if(dn == "<%-adSuffix%>"){
                     d.add("create","<%-adSuffix%>","생성하기","/create?dn="+dn); 

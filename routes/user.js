@@ -1,6 +1,5 @@
 //       모듈 불러오기
 const express = require('express');
-const ldap_add_user = require('../library/ldap_add_user');
 const ldap_search = require('../library/ldap_search');
 const ldap_authenticate = require('../library/ldap_authenticate');
 const ldap_change_password = require('../library/ldap_change_password');
@@ -36,8 +35,7 @@ ldap_search.getEntryData(baseDn,options).then((results)=>{
   },(err)=>{
     console.log("검색실패",err);
     response.send("검색실패");
-  }
-)
+  });
 });
 
 //       특정 유저 추가 WEB
@@ -64,8 +62,7 @@ console.log(`하하 ${dn}`);
   },(err)=>{
     console.log("검색실패",err);
     res.send("검색실패");
-  }
-);
+  });
 });
 
 //       특정 유저 추가
@@ -105,13 +102,13 @@ router.post('/bind',(req,res,next)=>{
     console.log("인증실패"+err);
     res.send("인증실패");
   });
-})
+});
 
 //       특정 유저 비밀번호 변경
 router.put('/password',(req,res,next)=>{
-  var uid = req.body.uid;
-  var passwordOld = req.body.passwordOld;
-  var passwordNew = req.body.passwordNew;
+  let uid = req.body.uid;
+  let passwordOld = req.body.passwordOld;
+  let passwordNew = req.body.passwordNew;
 
   ldap_change_password.changePassword(uid,passwordOld,passwordNew).then(()=>{
     console.log("변경성공");
@@ -119,8 +116,8 @@ router.put('/password',(req,res,next)=>{
   },(err)=>{
     console.log("변경실패"+err);
     res.send("변경실패");    
-  } )
-})
+  });
+});
 
 // 특정 유저 상세보기 JSON
 router.get('/:cn',(request,response,next)=>{
@@ -150,7 +147,7 @@ router.get('/:cn',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 // 특정 유저 삭제
@@ -206,11 +203,11 @@ router.get('/:cn/web',(request,response,next)=>{
     console.log("검색성공!" + results);
     response.render('detail/user_detail',{
       entry : results.entries[0]
-    })
+    });
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 

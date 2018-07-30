@@ -1,12 +1,12 @@
 const ldapjs = require('ldapjs');
 const Promise = require('bluebird');
-const config = require('../config/config')
+const config = require('../config/config');
 
 const ldapOptions = {
     url: config.server,
     connectTimeout: 30000,
     reconnect: true
-}
+};
 
 let addUser = (gn,sn,displayName,gidNum,uidNum,password) => {
     return new Promise((resolve,reject) =>{
@@ -37,12 +37,10 @@ let addUser = (gn,sn,displayName,gidNum,uidNum,password) => {
                             return reject(err)
                         }
                         return resolve(Response);
-                    }
-                )
-            }
-        )
-    } )
-}
+                    });
+            });
+    });
+};
 
 module.exports = {
     addUser

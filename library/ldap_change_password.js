@@ -29,11 +29,9 @@ let changePassword = (uid,passwordOld,passwordNew) =>{
                 (err)=>{
                     if(err) return reject(err);
                     return resolve(true);
-                }
-            )
-            }
-        )
-    })
+                });
+            });
+    });
 }
 
 module.exports = {

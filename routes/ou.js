@@ -1,9 +1,9 @@
-var express = require('express');
+const express = require('express');
 const config = require('../config/config');
 const ldap_search = require('../library/ldap_search');
 const ldap_delete_entry = require('../library/ldap_delete_entry');
 const ldap_add = require('../library/ldap_add');
-var router = express.Router();
+const router = express.Router();
 
 // 전체 조직 보기 JSON
 router.get('/',(request,response,next)=>{
@@ -23,7 +23,7 @@ router.get('/',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 //       특정 조직 추가 WEB
@@ -71,7 +71,7 @@ router.get('/:ou',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 // 특정 그룹 삭제
 router.delete('/:ou',(request,response,next)=>{
@@ -93,10 +93,10 @@ router.delete('/:ou',(request,response,next)=>{
       response.send({
         result : true
       });
-    })
+    });
   },(err)=>{
     response.send("삭제실패!"+err);
-  })
+  });
 }); 
 // 특정 조직 상세보기 WEB
 router.get('/:ou/web',(request,response,next)=>{
@@ -115,11 +115,11 @@ router.get('/:ou/web',(request,response,next)=>{
     console.log("검색성공!" + results.entries[0].dn);
     response.render('detail/ou_detail',{
       entry : results.entries[0]
-    })
+    });
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 

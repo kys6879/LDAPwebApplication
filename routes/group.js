@@ -1,12 +1,12 @@
-var express = require('express');
+const express = require('express');
 const config = require('../config/config');
 const ldap_search = require('../library/ldap_search');
 const ldap_delete_entry = require('../library/ldap_delete_entry');
 const ldap_add = require('../library/ldap_add');
-var router = express.Router();
+const router = express.Router();
 
 // 전체 그룹 보기 JSON
-router.get('/', function(request, response, next) {
+router.get('/', (request, response, next) => {
   let filter = `(ObjectClass=posixGroup)`;
   let baseDn = `${config.adSuffix}`;
   let options = {
@@ -45,6 +45,7 @@ router.post('/add',(req,res,next)=>{
   let cn = req.body.cn;
   let gidNumber = req.body.gidNumber;
   let dn = req.body.groupdn;
+
   let groupdn = `cn=${cn},${dn}`;
   let entry = {
     cn : cn,
@@ -85,7 +86,7 @@ router.get('/:cn',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 
 // 특정 그룹 삭제
@@ -141,6 +142,6 @@ router.get('/:cn/web',(request,response,next)=>{
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
 }); 
 module.exports = router;

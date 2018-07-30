@@ -18,10 +18,9 @@ let authenticate = (uid,password) => {
                 if (err) return reject(err);
                 ldapClient.unbind();
                 return resolve(res);
-            }
-        )
-    } )
-}
+            });
+    });
+};
 
 module.exports = {
   authenticate

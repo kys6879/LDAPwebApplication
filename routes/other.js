@@ -23,8 +23,7 @@ router.get('/',(request,response,next)=>{
   },(err)=>{
     console.log("검색실패",err);
     response.send("검색실패");
-  }
-)
+  });
 });
 // 전체 목록 보기 (웹)
 router.get('/web',(request,response,next)=>{
@@ -48,12 +47,11 @@ router.get('/web',(request,response,next)=>{
       results : results,
       entriesstr : entriesstr,
       adSuffix : config.adSuffix
-    })
+    });
   },(err)=>{
     console.log("검색실패",err);
     response.send("검색실패");
-  }
-)
+  });
 });
 
 module.exports = router;

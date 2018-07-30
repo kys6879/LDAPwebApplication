@@ -22,11 +22,10 @@ let deleteEntry = (dn) => {
                         return reject(err)
                     }
                     return resolve(result);
-                })
-            }
-        )
-    } )
-}
+                });
+            });
+    });
+};
 
 module.exports = {
     deleteEntry 

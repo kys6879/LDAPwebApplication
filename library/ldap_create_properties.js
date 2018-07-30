@@ -1,4 +1,5 @@
 const config = require('../config/config');
+
 let createDetailObjectClass = (r) =>{
     for(let i=0; i<r.objectClass.length; i++){
         switch(r.objectClass[i]){
@@ -20,14 +21,14 @@ let createDetailObjectClass = (r) =>{
             
         }                       
     }
-}
+};
 
 let createTreeLevel = (r) =>{
     let beforeDn = r.dn; 
     let treeLevel = beforeDn.match(/,/g);
 
     r.treeLevel = treeLevel.length-2;
-}
+};
 
 let createParents = (r) =>{
     let beforeDn = r.dn;
@@ -40,7 +41,8 @@ let createParents = (r) =>{
     let backDn = beforeDn.substring(signIndex+1,beforeDn.length);
 
     r.parentsDn = backDn;
-}
+};
+
 let createRoutePath = (r) =>{
     console.log(`router ${r.objectClass.length}`);
     for(let i=0; i<r.objectClass.length; i++){ 
@@ -62,7 +64,7 @@ let createRoutePath = (r) =>{
                 break;
         }
     }    
-}
+};
 
 module.exports = {
     createTreeLevel,
