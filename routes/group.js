@@ -2,6 +2,7 @@ var express = require('express');
 const config = require('../config/config');
 const ldap_search = require('../library/ldap_search');
 const ldap_delete_entry = require('../library/ldap_delete_entry');
+const ldap_add = require('../library/ldap_add');
 var router = express.Router();
 
 // 전체 그룹 보기 JSON
@@ -28,7 +29,35 @@ router.get('/', function(request, response, next) {
   }, (err)=>{
       console.log("검색실패",err);
       response.send("검색실패");
-  })
+  });
+});
+
+//       특정 그룹 추가 WEB
+router.get('/add/web',(req,res,next)=>{
+  let dn = req.query.dn;
+  res.render('create/group_add',{
+    dn : dn
+  });
+});
+
+//       특정 그룹 추가
+router.post('/add',(req,res,next)=>{
+  let cn = req.body.cn;
+  let gidNumber = req.body.gidNumber;
+  let dn = req.body.groupdn;
+  let groupdn = `cn=${cn},${dn}`;
+  let entry = {
+    cn : cn,
+    gidNumber : gidNumber,
+    objectClass : ["posixGroup","top"],
+  };
+  ldap_add.addEntry(groupdn , entry).then(()=>{
+    console.log("그룹 추가 성공");
+    res.redirect('/');
+  },(err)=>{
+    console.log("추가 실패 코드 : "+err);
+    res.send("추가 실패 코드 : "+err);
+  });
 });
 
 // 특정 그룹 상세보기 JSON

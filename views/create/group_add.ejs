@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LDAP 기반 웹 애플리케이션</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      #reg input{
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>회원 생성</h1>
+    <div id="reg">
+      <form action="/group/add" method="post">
+
+        그룹이름 <input type="text" name="cn" placeholder="gn" style="margin-left: 38px"> <br>
+        그룹번호 <input type="text" name="gidNumber" placeholder="sn" style="margin-left: 25px"> <br>
+        <br>
+        <input type="hidden" name="groupdn" value="<%-dn%>" > <br>
+        <input type="submit" value="생성">
+      </form>
+    </div>
+  </body>
+</html>
