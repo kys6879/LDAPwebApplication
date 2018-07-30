@@ -20,17 +20,18 @@
         성 <input type="text" name="gn" placeholder="gn" style="margin-left: 38px"> <br>
         이름 <input type="text" name="sn" placeholder="sn" style="margin-left: 25px"> <br>
         대표이름 <input type="text" name="displayName" placeholder="displayName"> <br>
-        그룹 : <select name="gidNumber" >
+        그룹 : <select name="gidNumber">
             <% for(var i =0 ;i<length; i++){ %>
-                 <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
+                <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
             <% } %>
         </select>
         <br>
-        유저번호 <input type="text" name="uidNumber" placeholder="uidNumber"> <br>
+        유저번호 <input type="text" name="un" placeholder="uidNumber"> <br>
         비밀번호 <input type="password" name="password" placeholder="password"> <br>
+        <input type="hidden" name="userdn" value="<%-dn%>" > <br>
         <input type="submit" value="생성">
+        <%-dn%>
       </form>
     </div>
-    <%-results.entryLength %>
   </body>
 </html>

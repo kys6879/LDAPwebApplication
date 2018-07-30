@@ -5,6 +5,7 @@ const ldap_search = require('../library/ldap_search');
 const ldap_authenticate = require('../library/ldap_authenticate');
 const ldap_change_password = require('../library/ldap_change_password');
 const ldap_delete_entry = require('../library/ldap_delete_entry');
+const ldap_add = require('../library/ldap_add');
 const config = require('../config/config');
 const router = express.Router();
 
@@ -42,43 +43,56 @@ ldap_search.getEntryData(baseDn,options).then((results)=>{
 //       특정 유저 추가 WEB
 router.get('/add/web',(req,res,next)=>{
   let filter = "(ObjectClass=posixGroup)";
+  let dn = req.query.dn;
   let baseDn = `${config.adSuffix}`
   let options = {
     attributes: [
         "cn",
         "ObjectClass",
+        "gidNumber"
     ],
     scope: "sub",
     filter: filter
 };
+console.log(`하하 ${dn}`);
   ldap_search.getEntryData(baseDn,options).then((results)=>{
-    console.log("검색성공!" + results);
-    res.render('user_add',{
-      results : results
+    console.log("검색성공!" + results.entries[0]);
+    res.render('create/user_add',{
+      results : results,
+      dn : dn
     })
   },(err)=>{
     console.log("검색실패",err);
     res.send("검색실패");
   }
-)  
-})
+);
+});
+
 //       특정 유저 추가
 router.post('/add',(req,res,next)=>{
-  let gn = req.body.gn;
-  let sn = req.body.sn;
-  let displayName = req.body.displayName;
-  let gidNum = req.body.gidNumber;
-  let uidNum = req.body.uidNumber;
-  let password = req.body.password;
-  
-  ldap_add_user.addUser(gn,sn,displayName,gidNum,uidNum,password).then(()=>{
+  let dn = req.body.userdn;
+  let newUser = {
+    givenName : req.body.gn,
+    sn : req.body.sn,
+    uid : req.body.displayName,
+    gidNumber : req.body.gidNumber,
+    uidNumber : req.body.un,
+    userPassword : req.body.password,
+    cn : req.body.gn+req.body.sn,
+    homeDirectory : "/home/users/"+req.body.displayName,
+    objectClass: ["person","posixAccount","inetOrgPerson"],
+};
+console.log(""+ JSON.stringify(newUser,null,2));
+let userDn = `cn=${newUser.cn},${dn}`;
+console.log(`${userDn}`);
+  ldap_add.addEntry(userDn , newUser).then(()=>{
     console.log("유저 추가 성공");
     res.redirect('/');
-  },(err) =>{
+  },(err)=>{
     console.log("추가 실패 코드 : "+err);
     res.send("추가 실패 코드 : "+err);
   });
-})
+});
 
 //       특정 유저 인증
 router.post('/bind',(req,res,next)=>{

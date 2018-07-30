@@ -4,8 +4,10 @@ const router = express.Router();
 
 // 엔트리 생성폼
 router.get('/', function(request, response, next) {
-    response.render("create",{
-        dn : request.query.dn
+    let dn = request.query.dn; 
+
+    response.render("create/create",{
+        dn : dn
     });
 });
 

@@ -8,7 +8,7 @@ const ldapOptions = {
     reconnect: true
 }
 
-let addUser = (gn,sn,displayName,gidNum,uidNum,password) => {
+let addEntry = (dn,entry) => {
     return new Promise((resolve,reject) =>{
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
@@ -17,21 +17,9 @@ let addUser = (gn,sn,displayName,gidNum,uidNum,password) => {
                 if (err){
                     return reject(err);
                 }
-                let newUser = {
-                    givenName : gn,
-                    sn : sn,
-                    uid : displayName,
-                    gidNumber : gidNum,
-                    uidNumber : uidNum,
-                    userPassword : password,
-                    cn : gn+sn,
-                    homeDirectory : "/home/users/"+displayName,
-                    objectClass: ["person","posixAccount","inetOrgPerson"],
-                };
-                let userDn = 'cn='+gn+sn+','+'ou=users,dc=example,dc=org';
                 ldapClient.add(
-                    userDn,
-                    newUser,
+                    dn,
+                    entry,
                     (err,Response) => {
                         if (err){
                             return reject(err)
@@ -45,5 +33,5 @@ let addUser = (gn,sn,displayName,gidNum,uidNum,password) => {
 }
 
 module.exports = {
-    addUser
+    addEntry
 };

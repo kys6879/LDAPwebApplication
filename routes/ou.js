@@ -2,6 +2,7 @@ var express = require('express');
 const config = require('../config/config');
 const ldap_search = require('../library/ldap_search');
 const ldap_delete_entry = require('../library/ldap_delete_entry');
+const ldap_add = require('../library/ldap_add');
 var router = express.Router();
 
 // 전체 조직 보기 JSON
@@ -24,6 +25,32 @@ router.get('/',(request,response,next)=>{
       response.send("검색실패");
   })
 }); 
+
+//       특정 조직 추가 WEB
+router.get('/add/web',(req,res,next)=>{
+  let dn = req.query.dn;
+  res.render('create/ou_add',{
+    dn : dn
+  });
+});
+
+//       특정 그룹 추가
+router.post('/add',(req,res,next)=>{
+  let ouname = req.body.ouname; // 사용자가 정한 조직이름
+  let oudn = "ou="+ouname+","+req.body.oudn;
+  let entry = {
+    ou : ouname,
+    objectClass : "organizationalUnit"
+  }
+  console.log(`만들려는그룹이름${ouname} 추가할려면 dn주소 ${oudn}`);
+  ldap_add.addEntry(oudn , entry).then(()=>{
+    console.log("그룹 추가 성공");
+    res.redirect('/');
+  },(err)=>{
+    console.log("추가 실패 코드 : "+err);
+    res.send("추가 실패 코드 : "+err);
+  });
+});
 
 // 특정 조직 상세보기 JSON
 router.get('/:ou',(request,response,next)=>{
