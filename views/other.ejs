@@ -32,10 +32,10 @@
               function createNewEntry(entry) {
                   let dn = entry.dn;
                   if(dn == "<%-adSuffix%>"){
-                    d.add("create","<%-adSuffix%>","생성하기","/create"); 
+                    d.add("create","<%-adSuffix%>","생성하기","/create?dn="+dn); 
                   }
                   if(dn.split('=')[0] == "ou"  ){
-                    d.add("create",dn,"생성하기","/create"); 
+                    d.add("create",dn,"생성하기","/create?dn="+dn); 
                   }
               }
           </script>

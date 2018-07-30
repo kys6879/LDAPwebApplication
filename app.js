@@ -16,6 +16,7 @@ const monitoringRouter = require('./routes/monitoring');
 const adminRouter = require('./routes/admin');
 const organizationRouter = require('./routes/org');
 const optionRouter = require('./routes/option');
+const createRouter = require('./routes/create');
 const app = express();
 
 //       템플릿 엔진 설정
@@ -41,6 +42,7 @@ app.use('/monitor', monitoringRouter);
 app.use('/admin', adminRouter);
 app.use('/org',organizationRouter);
 app.use('/option',optionRouter);
+app.use('/create',createRouter);
 //       404 에러 핸들링
 app.use((req,res,next)=>{
   next(createError(404));
