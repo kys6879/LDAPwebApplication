@@ -151,16 +151,18 @@ router.delete('/:cn',(request,response,next)=>{
     ],
     scope: "sub",
     filter: filter
-};  
+};
   ldap_search.getEntryData(baseDn,options).then((results)=>{
     console.log("검색성공!" + results.entries);
     ldap_delete_entry.deleteEntry(results.entries[0].dn).then(()=>{
       console.log("삭제 성공!");
-      response.send("삭제 성공");
-    })
+      response.send({
+        result : true
+      });
+    });
   },(err)=>{
     response.send("삭제실패!"+err);
-  })
+  });
 }); 
 
 

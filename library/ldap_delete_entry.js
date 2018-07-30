@@ -29,5 +29,5 @@ let deleteEntry = (dn) => {
 }
 
 module.exports = {
-    deleteEntry
+    deleteEntry 
 };

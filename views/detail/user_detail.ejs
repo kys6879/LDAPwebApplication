@@ -4,21 +4,44 @@
     <title>LDAP 기반 웹 애플리케이션</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
 
-        <h1>cn =<%-entry.cn %></h1>
+        <h1>cn = <%-entry.cn %></h1>
         
         <div>
-            cn : <%-entry.cn %> <br>
-            gidNumber : <%-entry.gidNumber %> <br>
-            givenName : <%-entry.givenName %> <br>
-            homeDirectroy : <%-entry.homeDirectory %> <br>
+            [이름]cn : <%-entry.cn %> <br>
+            [그룹번호]gidNumber : <%-entry.gidNumber %> <br>
+            [성]givenName : <%-entry.givenName %> <br>
+            [홈 디렉토리]homeDirectroy : <%-entry.homeDirectory %> <br>
             objectClass : <%-entry.objectClass %> <br>
-            sn : <%-entry.sn %> <br>
-            uidNumber : <%-entry.uidNumber %> <br>
-            user Name : <%-entry.uid %> <br>
+            [이름]sn : <%-entry.sn %> <br>
+            [유저번호]uidNumber : <%-entry.uidNumber %> <br>
+            [대표유저이름]user Name : <%-entry.uid %> <br>
         </div>
+
+        <button onclick="deleteButton('<%-entry.cn%>')" id="deleteButton">삭제하기</button> <br>
+
+        <script>
+            function deleteButton(cn) {
+                console.log("에이젝스 delete  " +cn);
+                $.ajax({
+                    url: '/user/'+cn,          
+                    dataType: 'json',                
+                    type: 'DELETE',
+                    data : {},
+                        success: function(result) {
+                            if(result['result'] == true){
+                                alert("성공");
+                                location.href="/other/web";
+                            }else{
+                                alert("실패");
+                            }
+                        } 
+                        }); 
+            }
+        </script>
         <a href="/">메인으로</a>
     </body>
 </html>

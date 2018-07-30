@@ -26,7 +26,6 @@ router.get('/',(request,response,next)=>{
   }
 )
 });
-
 // 전체 목록 보기 (웹)
 router.get('/web',(request,response,next)=>{
   let filter = "(ObjectClass=*)";

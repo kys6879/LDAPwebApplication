@@ -4,6 +4,7 @@
     <title>LDAP 기반 웹 애플리케이션</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
 
@@ -13,6 +14,26 @@
             ou : <%-entry.ou %> <br>
             objectClass : <%-entry.objectClass %> <br>
         </div>
+        <button onclick="deleteButton('<%-entry.ou%>')" id="deleteButton">삭제하기</button> <br>
+        <script>
+            function deleteButton(ou) {
+                console.log("에이젝스 delete  " +ou);
+                $.ajax({
+                    url: '/ou/'+ou,          
+                    dataType: 'json',                
+                    type: 'DELETE',
+                    data : {},
+                        success: function(result) {
+                            if(result['result'] == true){
+                                alert("성공");
+                                location.href="/other/web";
+                            }else{
+                                alert("실패");
+                            }
+                        } 
+                        }); 
+            }
+        </script>
         <a href="/">메인으로</a>
     </body>
 </html>
