@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>Document</title>
+
 </head>
 <body>
+        <%-include("../layout/header") %>
+
+        <div class="main">
         <a onclick="getData('/other','other');">모든 정보 내보내기</a> <br>
         <a onclick="getData('/user','user');">유저 정보 내보내기</a> <br>
         <a onclick="getData('/group','group');">그룹 정보 내보내기</a> <br>
@@ -15,7 +19,7 @@
         <a onclick="getData('/admin','admin');">어드민 정보 내보내기</a> <br>
         <a onclick="getData('/org','org');">최상위조직 정보 내보내기</a> <br>
 
-        <button onclick="exportButton()" id="exportbutton">확인한 결과를 내보내기</button>
+        <button onclick="exportButton()" id="exportbutton" class="button">확인한 결과를 내보내기</button>
         <pre>
         <div id="result">
             
@@ -56,7 +60,8 @@
             
         }
     </script>
-
+    </div>
+    <%-include("../layout/footer") %>
 </body>
 
 </html>

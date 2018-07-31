@@ -7,14 +7,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
-
+            <%-include("../layout/header") %>
         <h1>ou = <%-entry.ou %></h1>
         
-        <div>
-            ou : <%-entry.ou %> <br>
-            objectClass : <%-entry.objectClass %> <br>
+        <div class="detail">
+            <div>ou : <%-entry.ou %></div><br>
+            <div>objectClass : <%-entry.objectClass %></div> <br>
         </div>
-        <button onclick="deleteButton('<%-entry.ou%>')" id="deleteButton">삭제하기</button> <br>
+        <button onclick="deleteButton('<%-entry.ou%>')" id="deleteButton" class="button">삭제하기</button> <br>
         <script>
             let deleteButton = (ou) => {
                 console.log("에이젝스 delete  " +ou);
@@ -35,5 +35,6 @@
             }
         </script>
         <a href="/">메인으로</a>
+        <%-include("../layout/footer") %>
     </body>
 </html>

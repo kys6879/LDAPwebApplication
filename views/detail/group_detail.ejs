@@ -8,18 +8,18 @@
 
     </head>
     <body>
-
+            <%-include("../layout/header") %>
         <h1>cn =<%-entry.cn %></h1>
         
-        <div>
-            cn : <%-entry.cn %> <br>
-            gidNumber : <%-entry.gidNumber %> <br>
-            objectClass : <%-entry.objectClass %> <br>
+        <div class="detail">
+            <div>cn : <%-entry.cn %> </div><br>
+            <div>giNumber : <%-entry.gidNumber %> </div><br>
+            <div> objectClass : <%-entry.objectClass %> </div><br>
             <% if(entry.memberUid){ %>
-                memberUid : <%-entry.memberUid %>
+            <div> memberUid : <%-entry.memberUid%></div> 
                 <%}%>
         </div>
-        <button onclick="deleteButton('<%-entry.cn%>')" id="deleteButton">삭제하기</button> <br>
+        <button onclick="deleteButton('<%-entry.cn%>')" id="deleteButton" class="button">삭제하기</button> <br>
         <script>
             let deleteButton = (cn) => {
                 console.log("에이젝스 delete  " +cn);
@@ -40,5 +40,6 @@
             }
         </script>
         <a href="/">메인으로</a>
+        <%-include("../layout/footer") %>
     </body>
 </html>

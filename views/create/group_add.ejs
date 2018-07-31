@@ -10,6 +10,7 @@
     </style>
   </head>
   <body>
+      <%-include("../layout/footer") %>
     <h1>그룹 생성</h1>
     <div id="reg">
       <form action="/group/add" method="post">
@@ -18,8 +19,9 @@
         그룹번호 <input type="text" name="gidNumber" placeholder="sn" style="margin-left: 25px"> <br>
         <br>
         <input type="hidden" name="groupdn" value="<%-dn%>" > <br>
-        <input type="submit" value="생성">
+        <input type="submit" value="생성" class="button">
       </form>
     </div>
+    <%-include("../layout/footer") %>
   </body>
 </html>

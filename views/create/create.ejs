@@ -10,13 +10,13 @@
         </style>    
     </head>
     <body>
+        <%-include("../layout/header") %>
         <div >
         <h1>생성</h1>
-
         <input type="radio" id="LDAP_Attribute" name="ou" onclick="window.location='/ou/add/web?dn=<%-dn%>';"/> 조직 (Ou) <br>
         <input type="radio" id="LDAP_Attribute" name="group" onclick="window.location='/group/add/web?dn=<%-dn%>';"/> 그룹 (Posix Group)<br>
         <input type="radio" id="LDAP_Attribute" name="user" onclick="window.location='/user/add/web?dn=<%-dn%>';" /> 유저 (User) <br>
         </div>
-
+        <%-include("../layout/footer") %>
     </body>
 </html>

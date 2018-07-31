@@ -8,18 +8,15 @@
     <script type="text/javascript" src="/javascripts/dtree.js"></script>
   </head>
   <body>
-      <div class="dtree">
-        
-      <h1>모든 정보 가져오기</h1>
-
-      <a href="/option/export/web">===정보 내보내기===</a><br>
-
-      <p>
-        <a href="javascript: d.openAll();">모두 열기</a> | <a href="javascript: d.closeAll();">모두 닫기</a>
-      </p>
-        결과 : <br> 
-          --------------
-          <br>
+    <%-include("layout/header") %>
+    <div class="main">
+        <div class="first_button"><a href="/option/export/web" style="text-align: center"><button class="button">정보 내보내기</button></a></div>
+        <div class="all_button">
+            <a href="javascript: d.openAll();" style="float: left; margin-right: 38px; margin-left: 22px;"><button class="button">모두 열기 </button></a> 
+            <a href="javascript: d.closeAll();" style="float: left;"><button class="button">모두 닫기 </button></a>
+          </div>
+      <div class="main">
+      <div class="dtree2">
           <script>
               let checkSpace = (str) => { 
                 if(str.search(/\s/) != -1) { 
@@ -62,8 +59,11 @@
           <br>
         필터 : <%-results.filterOption %> <br>
         개수 : <%-results.entryLength %> <br>
-    <a href="/">메인으로</a>
+
+      <a href="/"><button class="button">메인으로</button></a> <br>
   </div>
-  
+</div>
+</div>
+  <%-include("layout/footer") %>
   </body>
 </html>

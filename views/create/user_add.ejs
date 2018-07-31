@@ -10,11 +10,12 @@
     </style>
   </head>
   <body>
+      <%-include("../layout/header") %>
     <h1>회원 생성</h1>
     <div id="reg">
-     <%
-     let length = results.entryLength;
-     %>
+      <%
+      let length = results.entryLength;
+      %>
       <form action="/user/add" method="post">
 
         성 <input type="text" name="gn" placeholder="gn" style="margin-left: 38px"> <br>
@@ -29,8 +30,9 @@
         유저번호 <input type="text" name="un" placeholder="uidNumber"> <br>
         비밀번호 <input type="password" name="password" placeholder="password"> <br>
         <input type="hidden" name="userdn" value="<%-dn%>" > <br>
-        <input type="submit" value="생성">
+        <input type="submit" value="생성" class="button">
       </form>
     </div>
+    <%-include("../layout/footer") %>
   </body>
 </html>

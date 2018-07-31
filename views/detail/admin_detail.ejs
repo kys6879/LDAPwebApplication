@@ -6,13 +6,14 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     </head>
     <body>
-
+            <%-include("../layout/header") %>
         <h1>cn = <%-entry.cn %></h1>
-        <div>
-            cn : <%-entry.cn %> <br>
-            description : <%-entry.description %> <br>
-            objectClass : <%-entry.objectClass %> <br>
+        <div class="detail">
+            <div>cn : <%-entry.cn %></div> <br>
+            <div>description : <%-entry.description %></div> <br>
+            <div>objectClass : <%-entry.objectClass %></div> <br>
         </div>
         <a href="/">메인으로</a>
+        <%-include("../layout/footer") %>
     </body>
 </html>

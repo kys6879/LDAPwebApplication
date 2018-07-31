@@ -7,22 +7,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
-
+            <%-include("../layout/header") %>
         <h1>cn = <%-entry.cn %></h1>
         
-        <div>
-            [이름]cn : <%-entry.cn %> <br>
-            [그룹번호]gidNumber : <%-entry.gidNumber %> <br>
-            [성]givenName : <%-entry.givenName %> <br>
-            [홈 디렉토리]homeDirectroy : <%-entry.homeDirectory %> <br>
-            objectClass : <%-entry.objectClass %> <br>
-            [이름]sn : <%-entry.sn %> <br>
-            [유저번호]uidNumber : <%-entry.uidNumber %> <br>
-            [대표유저이름]user Name : <%-entry.uid %> <br>
+        <div class="detail">
+            <div>[이름]cn : <%-entry.cn %></div><br>
+            <div>[그룹번호]gidNumber : <%-entry.gidNumber %></div> <br>
+            <div>[성]givenName : <%-entry.givenName %></div> <br>
+            <div>[홈 디렉토리]homeDirectroy : <%-entry.homeDirectory %></div> <br>
+            <div>[objectClass] : <%-entry.objectClass %></div> <br>
+            <div>[이름]sn : <%-entry.sn %></div> <br>
+            <div>[유저번호]uidNumber : <%-entry.uidNumber %> </div><br>
+            <div>[대표유저이름]user Name : <%-entry.uid %></div> <br>
         </div>
 
-        <button onclick="deleteButton('<%-entry.cn%>')" id="deleteButton">삭제하기</button> <br>
-
+        <button onclick="deleteButton('<%-entry.cn%>')" id="deleteButton" class="button">삭제하기</button> <br>
         <script>
             let deleteButton = (cn) => {
                 console.log("에이젝스 delete  " +cn);
@@ -43,5 +42,6 @@
             }
         </script>
         <a href="/">메인으로</a>
+        <%-include("../layout/footer") %>
     </body>
 </html>
