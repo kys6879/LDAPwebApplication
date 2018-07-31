@@ -68,3 +68,6 @@ GET /org/:dc/web
 GET /other
 GET /other/web
 ```
+
+## View
+![메인메뉴](./projectImage/main.png)
