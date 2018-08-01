@@ -1,14 +1,16 @@
 const express = require('express');
+var mysql      = require('mysql');
+var dbconfig   = require('../config/database');
+
+var conn = mysql.createConnection(dbconfig);
 const router = express.Router();
-const  fs  = require ( 'file-system' ); 
 
 router.get('/',(request,response,next)=>{
-    fs.writeFile('./routes/demo.txt', "Hello world!", encoding="utf-8",(err)=>{
-        if(err){
-            response.send("Failed" + err);
-        }
+    let sql = `SELECT * FROM user;`
+    conn.query(sql,(err,rows)=>{
+        if(err) throw err;
+        response.send(""+ JSON.stringify(rows,null,2));
     });
-    response.send("Success");
-  }); 
+}); 
 
 module.exports = router;

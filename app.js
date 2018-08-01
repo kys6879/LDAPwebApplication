@@ -58,7 +58,7 @@ app.use((err,req,res,next)=>{
 
 //       리스너
 app.listen(3000,()=>{
-  console.log("server is run! at 3000 port!");
+  console.log("서버 시작");
 });
 
 module.exports = app;
