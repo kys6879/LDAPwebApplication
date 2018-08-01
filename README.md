@@ -16,6 +16,8 @@ http://www.openldap.org/
   * https://github.com/osixia/docker-openldap
   * https://github.com/osixia/docker-phpLDAPadmin
 * Node JS
+### DB
+* MySQL
 
 ## API
 객체 응답 결과는 JSON , HTML 이다.
