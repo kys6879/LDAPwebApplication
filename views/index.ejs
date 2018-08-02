@@ -3,15 +3,48 @@
   <head>
     <title>LDAP 기반 웹 애플리케이션</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/textbox.css' />
   </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <body>
       <%-include("layout/header") %>
     <div class="main">
-    <h1>LDAP 기반 웹 애플리케이션</h1>
-    <a href = "/other/web"><button class="button">모든 정보 가져오기 </button></a><br/>
-    <a href = "/monitor"><button class="button">개발자 페이지 </button></a><br/>
+      <h1>LDAP 기반 웹 애플리케이션</h1>
+      <a onclick="toggleForm();"><button class="button">로그인 </button></a><br/>
+      <a onclick="toggleForm();"><button class="button">회원가입 </button></a><br/>
+      <a href = "/other/web"><button class="button">모든 정보 가져오기 </button></a><br/>
+      <a href = "/monitor"><button class="button">개발자 페이지 </button></a><br/>
+
+      <div id="loginForm" style="display: none">
+
+        <label for="input_loginUsername">아이디</label>
+        <input type="text" name="username" id="input_loginUsername" placeholder="당신의 아이디"> <br>
+
+        <label for="input_loginPassword">비밀번호</label>
+        <input type="password" name="password" id="input_loginPassword" placeholder="당신의 비밀번호"> <br>
+
+        <input type="submit" value="로그인 하기" class="button">
+
+      </div>
+
+      <div id="registerForm" style="display: none">
+          아이디<input type="text" name="username" placeholder="당신의 아이디"> <br>
+          비밀번호<input type="password" name="password" placeholder="당신의 비밀번호"> <br>
+          <input type="submit" value="회원가입 하기" class="button"> 
+      </div>
+
     </div>
+
     <%-include("layout/footer") %>
+
+    <script>
+      let isLogin = false;
+      let isRegister = false;
+
+      let toggleForm = () =>{
+        $("$loginForm");
+      }
+    </script>
   </body>
 
 </html>

@@ -58,3 +58,7 @@ a {
   cursor: pointer;
   border-radius:10px;
 }
+
+.button:hover {
+  background-color: rgb(7, 17, 51); /* Green */
+}
