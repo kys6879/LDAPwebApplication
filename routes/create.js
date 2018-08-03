@@ -5,6 +5,7 @@ const router = express.Router();
 // 엔트리 생성폼
 router.get('/',(request, response, next) => {
     let dn = request.query.dn; 
+    console.log(`/create DN : ${dn}`);
     response.render("create/create",{
         dn : dn
     });

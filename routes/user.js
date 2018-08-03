@@ -52,13 +52,13 @@ router.get('/add/web',(req,res,next)=>{
     scope: "sub",
     filter: filter
 };
-console.log(`하하 ${dn}`);
+console.log(`/add/web DN : ${dn}`);
   ldap_search.getEntryData(baseDn,options).then((results)=>{
     console.log("검색성공!" + results.entries[0]);
     res.render('create/user_add',{
       results : results,
       dn : dn
-    })
+    });
   },(err)=>{
     console.log("검색실패",err);
     res.send("검색실패");
@@ -68,6 +68,8 @@ console.log(`하하 ${dn}`);
 //       특정 유저 추가
 router.post('/add',(req,res,next)=>{
   let dn = req.body.userdn;
+  let groupName = req.body.groupName;
+
   let newUser = {
     givenName : req.body.gn,
     sn : req.body.sn,
@@ -79,9 +81,9 @@ router.post('/add',(req,res,next)=>{
     homeDirectory : "/home/users/"+req.body.displayName,
     objectClass: ["person","posixAccount","inetOrgPerson"],
 };
-console.log(""+ JSON.stringify(newUser,null,2));
-let userDn = `cn=${newUser.cn},${dn}`;
-console.log(`${userDn}`);
+
+let userDn = `cn=${newUser.cn},ou=${groupName},${config.adSuffix}`;
+  console.log(`/add userDn : ${userDn}`);
   ldap_add.addEntry(userDn , newUser).then(()=>{
     console.log("유저 추가 성공");
     res.redirect('/');
@@ -175,7 +177,6 @@ router.delete('/:cn',(request,response,next)=>{
     response.send("삭제실패!"+err);
   });
 }); 
-
 
 // 특정 유저 상세보기 WEB
 router.get('/:cn/web',(request,response,next)=>{
