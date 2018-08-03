@@ -67,8 +67,16 @@ console.log(`/add/web DN : ${dn}`);
 
 //       특정 유저 추가
 router.post('/add',(req,res,next)=>{
-  let dn = req.body.userdn;
   let groupName = req.body.groupName;
+  let groupData = req.body.groupData;
+
+  groupData = JSON.parse(groupData);
+
+  for(let i=0; i<3; i++){
+    if(req.body.gidNumber == groupData[i].gnumber){
+      groupName = groupData[i].gname;
+    }
+  }
 
   let newUser = {
     givenName : req.body.gn,

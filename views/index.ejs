@@ -26,26 +26,39 @@
         <input type="submit" value="로그인 하기" class="button">
 
       </div>
+
       <%
       let length = results.entryLength;
+      let groups = [];
+      let r = {} ;
+      let entry = results.entries;
       %>
+
+      <% 
+      for(let i =0; i<length; i++){
+        r.gname = entry[i].cn;
+        r.gnumber = entry[i].gidNumber; 
+        groups.push(r);
+        r = {};
+      }
+      let a = JSON.stringify(groups,null,2);
+      %>
+      <br>
       <form action="/user/add" method="post">
           <div id="registerForm" style="display: none">
             성 <input type="text" name="gn" placeholder="성[GN]"> <br>
             이름 <input type="text" name="sn" placeholder="이름[sn]"> <br>
             대표이름 <input type="text" name="displayName" placeholder="대표이름[displayName]"> <br>
-            그룹 : <select name="gidNumber">
+
+            그룹 : <select name="gidNumber" id="selectGidNumber">
                 <% for(let i =0 ;i<length; i++){ %>
                     <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
                 <% } %>
             </select>
-            그룹 : <select name="groupName">
-                <% for(let i =0 ;i<length; i++){ %>
-                    <option value="<%=results.entries[i].cn%>"><%=results.entries[i].cn%></option>
-                <% } %>
-            </select>
+
             유저번호 <input type="text" name="un" placeholder="유저번호[un]"> <br>
             비밀번호 <input type="password" name="password" placeholder="비밀번호[password]"> <br>
+              <input type="text" name="groupData" value = "<%=a%>">
               <input type="submit" value="회원가입 하기" class="button"> 
           </div>
       </form>
@@ -56,6 +69,14 @@
     <script>
       let isLogin = false;
       let isRegister = false;
+      
+      // let selectFnc = () =>{
+      //   var gidNumber = $("#selectGidNumber").val();
+      //   var groupName = $("#selectGroupName").val();
+      //   var x = "<%=groups%>";
+      //   console.log(`${gidNumber}`);
+      //   console.log(`${groupName}`);
+      // }
       
       let toggleLoginForm = () =>{
         if(isRegister){ 
