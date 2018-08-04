@@ -12,7 +12,7 @@ let authenticate = (uid,password) => {
     return new Promise((resolve ,reject) => {
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
-            'cn='+uid+','+'ou=users,dc=example,dc=org',
+            'cn='+uid+','+'ou=users,dc=example,dc=org', // user DN
             password,
             (err,res) => {
                 if (err) return reject(err);
@@ -23,5 +23,5 @@ let authenticate = (uid,password) => {
 };
 
 module.exports = {
-  authenticate
+    authenticate
 };

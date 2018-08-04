@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="StyleSheet" href="stylesheets/dtree.css" type="text/css" />
-	<script type="text/javascript" src="javascripts/dtree.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/textbox.css' />
+    <script type="text/javascript" src="javascripts/dtree.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-        <%-include("layout/header") %>
+    <%-include("layout/header") %>
+        <form action="/monitor/login" method="post">
+            <div id="loginForm">
+                아이디
+                <input type="text" name="username" placeholder="아이디">
+                <br> 비밀번호
+                <input type="password" name="password" placeholder="비밀번호">
+                <br>
+                <input type="submit" value="로그인하기" class="button">
+            </div>
+        </form>
+        
         <%-include("layout/footer") %>
-    
+
 </body>
 
 </html>

@@ -23,10 +23,13 @@ let getEntryData = (baseDn,options) =>{
                     res.on('searchEntry',(entry)=>{
                         let r = entry.object;
                         if(r !== undefined){
+                            /* 맵핑 */
                             createProperties.createDetailObjectClass(r);
                             createProperties.createTreeLevel(r);
                             createProperties.createParents(r);
                             createProperties.createRoutePath(r);
+                            createProperties.createKoreanGroupName(r);
+                            /* 맵핑 */
                             entries.push(r);
                         }
                     });

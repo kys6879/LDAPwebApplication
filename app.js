@@ -5,6 +5,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const session = require('express-session');
 
 //       라우터 변수 설정
 const indexRouter = require('./routes/index');
@@ -31,6 +33,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({
+  secret: '32453425@%#@%#!%',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //       라우팅
 app.use('/', indexRouter);
@@ -43,6 +52,7 @@ app.use('/admin', adminRouter);
 app.use('/org',organizationRouter);
 app.use('/option',optionRouter);
 app.use('/create',createRouter);
+
 //       404 에러 핸들링
 app.use((req,res,next)=>{
   next(createError(404));

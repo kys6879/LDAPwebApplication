@@ -66,9 +66,26 @@ let createRoutePath = (r) =>{
     }    
 };
 
+let createKoreanGroupName = (r) =>{
+    if(r.detailObjectClass == "posixGroup"){
+        switch(r.cn){
+            case "sales":
+                r.koreanGroupName = "영업부";
+                break;
+            case "hr":
+                r.koreanGroupName = "인사부";
+                break;
+            case "dev":
+                r.koreanGroupName = "개발부";
+                break;
+        }
+    }
+}
+
 module.exports = {
     createTreeLevel,
     createDetailObjectClass,
     createParents,
-    createRoutePath
+    createRoutePath,
+    createKoreanGroupName
 }

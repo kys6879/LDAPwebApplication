@@ -1,3 +1,19 @@
+<%
+let length = results.entryLength;
+let groups = [];
+let r = {} ;
+let entry = results.entries;
+%>
+
+<% 
+for(let i =0; i<length; i++){
+  r.gname = entry[i].cn;
+  r.gnumber = entry[i].gidNumber; 
+  groups.push(r);
+  r = {};
+}
+let a = JSON.stringify(groups,null,2);
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,8 +23,11 @@
   </head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <body>
+
       <%-include("layout/header") %>
+
     <div class="main">
+
       <h1>LDAP 기반 웹 애플리케이션</h1>
       <a onclick="toggleLoginForm();"><button class="button">로그인 </button></a><br/>
       <a onclick="toggleRegisterForm();"><button class="button">회원가입 </button></a><br/>
@@ -16,34 +35,19 @@
       <a href = "/monitor"><button class="button">개발자 페이지 </button></a><br/>
 
       <div id="loginForm" style="display: none">
-
-        <label for="input_loginUsername">아이디</label>
-        <input type="text" name="username" id="input_loginUsername" placeholder="당신의 아이디"> <br>
-
+          그룹 : <select name="gidNumber" id="selectGidNumber">
+              <% for(let i =0 ;i<length; i++){ %>
+                  <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].koreanGroupName%></option>
+              <% } %>
+          </select>
+        아이디 : <input type="text" name="username" id="input_loginUsername" placeholder="당신의 아이디"> <br>
         <label for="input_loginPassword">비밀번호</label>
         <input type="password" name="password" id="input_loginPassword" placeholder="당신의 비밀번호"> <br>
-
         <input type="submit" value="로그인 하기" class="button">
-
       </div>
-
-      <%
-      let length = results.entryLength;
-      let groups = [];
-      let r = {} ;
-      let entry = results.entries;
-      %>
-
-      <% 
-      for(let i =0; i<length; i++){
-        r.gname = entry[i].cn;
-        r.gnumber = entry[i].gidNumber; 
-        groups.push(r);
-        r = {};
-      }
-      let a = JSON.stringify(groups,null,2);
-      %>
+      
       <br>
+
       <form action="/user/add" method="post">
           <div id="registerForm" style="display: none">
             성 <input type="text" name="gn" placeholder="성[GN]"> <br>
@@ -52,13 +56,12 @@
 
             그룹 : <select name="gidNumber" id="selectGidNumber">
                 <% for(let i =0 ;i<length; i++){ %>
-                    <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
+                    <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].koreanGroupName%></option>
                 <% } %>
             </select>
-
             유저번호 <input type="text" name="un" placeholder="유저번호[un]"> <br>
             비밀번호 <input type="password" name="password" placeholder="비밀번호[password]"> <br>
-              <input type="text" name="groupData" value = "<%=a%>">
+              <input type="hidden" name="groupData" value = "<%=a%>">
               <input type="submit" value="회원가입 하기" class="button"> 
           </div>
       </form>
@@ -69,14 +72,6 @@
     <script>
       let isLogin = false;
       let isRegister = false;
-      
-      // let selectFnc = () =>{
-      //   var gidNumber = $("#selectGidNumber").val();
-      //   var groupName = $("#selectGroupName").val();
-      //   var x = "<%=groups%>";
-      //   console.log(`${gidNumber}`);
-      //   console.log(`${groupName}`);
-      // }
       
       let toggleLoginForm = () =>{
         if(isRegister){ 
