@@ -43,19 +43,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser( (user, done) => {
   console.log(`serializeUser :  ${user.cn}`);
   done(null, user.cn);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser( (id, done) => {
   console.log(`deserializeUser : ${id}`);
   done(null,id);
 });
 
 passport.use(new LocalStrategy({
   passReqToCallback : true
-},function (req,username, password, done) {
+}, (req,username, password, done) => {
   let user = {
     cn : username,
     password : password,

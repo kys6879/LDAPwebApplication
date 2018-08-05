@@ -71,7 +71,7 @@ router.get('/add/web', (req, res, next) => {
 router.post('/add', (req, res, next) => {
   let groupName = req.body.groupName;
   let groupData = req.body.groupData;
-
+  
   groupData = JSON.parse(groupData);
 
   for (let i = 0; i < 3; i++) {

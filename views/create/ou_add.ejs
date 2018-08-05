@@ -14,7 +14,8 @@
     <h1>조직 생성</h1>
     <div id="reg">
       <form action="/ou/add" method="post">
-        조직이름 <input type="text" name="ouname" style="margin-left: 38px"> <br>
+        조직이름[영어] <input type="text" name="ouname" style="margin-left: 38px"> <br>
+        조직이름[한글] <input type="text" name="koreanName" style="margin-left: 38px"> <br>
         <input type="hidden" name="oudn" value="<%-dn%>" > <br>
         <input type="submit" value="생성" class="button">
       </form>

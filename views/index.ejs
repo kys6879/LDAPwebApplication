@@ -29,6 +29,7 @@ let a = JSON.stringify(groups,null,2);
     <div class="main">
 
       <h1>LDAP 기반 웹 애플리케이션</h1>
+      
       <% if (user) { %>
         <h1><%= user %> 님 환영합니다.!</h1>
         <a href="/user/logout"><button class="button">로그아웃 </button></a><br/>
@@ -44,7 +45,7 @@ let a = JSON.stringify(groups,null,2);
         <div id="loginForm" style="display: none">
             그룹 : <select name="ou" id="selectGidNumber">
                 <% for(let i =0 ;i<length; i++){ %>
-                    <option value="<%=results.entries[i].cn%>"><%=results.entries[i].koreanGroupName%></option>
+                    <option value="<%=results.entries[i].ou%>"><%=results.entries[i].koreanGroupName%></option>
                 <% } %>
             </select>
           이름 : <input type="text" name="username" id="input_loginUsername" placeholder="대표이름"> <br>
@@ -63,9 +64,9 @@ let a = JSON.stringify(groups,null,2);
             이름 <input type="text" name="sn" placeholder="이름[sn]"> <br>
             대표이름 <input type="text" name="displayName" placeholder="대표이름[displayName]"> <br>
 
-            그룹 : <select name="gidNumber" id="selectGidNumber">
+            그룹 : <select name="ou" id="selectOu">
                 <% for(let i =0 ;i<length; i++){ %>
-                    <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].koreanGroupName%></option>
+                    <option value="<%=results.entries[i].ou%>"><%=results.entries[i].businessCategory%></option>
                 <% } %>
             </select>
             유저번호 <input type="text" name="un" placeholder="유저번호[un]"> <br>

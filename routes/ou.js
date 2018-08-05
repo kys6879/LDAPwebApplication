@@ -13,6 +13,7 @@ router.get('/',(request,response,next)=>{
     attributes: [
       "ou",
       "ObjectClass",
+      "businessCategory"
     ],
     scope: "sub",
     filter: filter
@@ -37,10 +38,12 @@ router.get('/add/web',(req,res,next)=>{
 //       특정 조직 추가
 router.post('/add',(req,res,next)=>{
   let ouname = req.body.ouname; // 사용자가 정한 조직이름
+  let koreanName = req.body.koreanName
   let oudn = "ou="+ouname+","+req.body.oudn;
   let entry = {
     ou : ouname,
-    objectClass : ["organizationalUnit","top"]
+    objectClass : ["organizationalUnit","top"],
+    businessCategory : koreanName
   }
   console.log(`만들려는그룹이름${ouname} 추가할려면 dn주소 ${oudn}`);
   ldap_add.addEntry(oudn , entry).then(()=>{
@@ -61,6 +64,7 @@ router.get('/:ou',(request,response,next)=>{
     attributes: [
       "ou",
       "ObjectClass",
+      "businessCategory"
     ],
     scope: "sub",
     filter: filter
@@ -107,6 +111,7 @@ router.get('/:ou/web',(request,response,next)=>{
     attributes: [
       "ou",
       "ObjectClass",
+      "businessCategory"
     ],
     scope: "sub",
     filter: filter

@@ -28,7 +28,6 @@ let getEntryData = (baseDn,options) =>{
                             createProperties.createTreeLevel(r);
                             createProperties.createParents(r);
                             createProperties.createRoutePath(r);
-                            createProperties.createKoreanGroupName(r);
                             /* 맵핑 */
                             entries.push(r);
                         }

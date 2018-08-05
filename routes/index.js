@@ -5,18 +5,19 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/',(req, res, next) => {
-  let filter = "(ObjectClass=posixGroup)";
-  let baseDn = `${config.adSuffix}`
+  let filter = "(ObjectClass=organizationalUnit)";
+  let baseDn = `ou=department,${config.adSuffix}`
   let options = {
     attributes: [
-        "cn",
+        "ou",
         "ObjectClass",
-        "gidNumber"
+        "businessCategory"
     ],
-    scope: "sub",
+    scope: "one",
     filter: filter
 };
   ldap_search.getEntryData(baseDn,options).then((results)=>{
+    console.log(`총 결과 : ${results.entryLength} 개`);
     console.log("검색성공!" + JSON.stringify(results.entries,null,2));
     res.render('index',{
       results : results,
