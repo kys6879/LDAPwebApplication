@@ -20,7 +20,8 @@ router.get('/',(req, res, next) => {
     console.log("검색성공!" + JSON.stringify(results.entries,null,2));
     res.render('index',{
       results : results,
-      title : 'Express'
+      title : 'Express',
+      user : req.user
     });
   },(err)=>{
     console.log("검색실패",err);

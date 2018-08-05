@@ -44,8 +44,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function (user, done) {
-  console.log(`serializeUser :  ${user.uname}`);
-  done(null, user.uname);
+  console.log(`serializeUser :  ${user.cn}`);
+  done(null, user.cn);
 });
 
 passport.deserializeUser(function (id, done) {
@@ -53,19 +53,21 @@ passport.deserializeUser(function (id, done) {
   done(null,id);
 });
 
-passport.use(new LocalStrategy(function (username, password, done) {
-  let uname = username;
-  let pwd = password;
+passport.use(new LocalStrategy({
+  passReqToCallback : true
+},function (req,username, password, done) {
   let user = {
-    uname: uname,
-    pwd: pwd
-  }
-  if (uname == "kys" && pwd == "1234") {
-    console.log(`LocalStrategy : ${ JSON.stringify(user,null,2)}`);
-    return done(null, user);
-  } else {
-    return done(null, false);
-  }
+    cn : username,
+    password : password,
+    ou : req.body.ou
+  };
+    ldap_authenticate.authenticate(user.cn,user.password,user.ou).then(()=>{
+      console.log("인증성공");
+      return done(null, user);
+    },(err) =>{
+      console.log("인증실패");
+      return done(null, false);
+    });
 }));
 
 

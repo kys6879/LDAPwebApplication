@@ -14,7 +14,6 @@ router.get('/success', (request, response, next) => {
     response.send("로그인성공");
 });
 
-
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/monitor/success',
     failureRedirect: '/monitor',
