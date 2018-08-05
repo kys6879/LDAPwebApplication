@@ -4,9 +4,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
+
+const ldap_authenticate = require('./library/ldap_authenticate');
 
 //       라우터 변수 설정
 const indexRouter = require('./routes/index');
@@ -31,8 +33,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(session({
   secret: '32453425@%#@%#!%',
   resave: false,
@@ -40,6 +42,32 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.serializeUser(function (user, done) {
+  console.log(`serializeUser :  ${user.uname}`);
+  done(null, user.uname);
+});
+
+passport.deserializeUser(function (id, done) {
+  console.log(`deserializeUser : ${id}`);
+  done(null,id);
+});
+
+passport.use(new LocalStrategy(function (username, password, done) {
+  let uname = username;
+  let pwd = password;
+  let user = {
+    uname: uname,
+    pwd: pwd
+  }
+  if (uname == "kys" && pwd == "1234") {
+    console.log(`LocalStrategy : ${ JSON.stringify(user,null,2)}`);
+    return done(null, user);
+  } else {
+    return done(null, false);
+  }
+}));
+
 
 //       라우팅
 app.use('/', indexRouter);
@@ -49,17 +77,17 @@ app.use('/ou', organizationalUnitsRouter);
 app.use('/other', otherRouter);
 app.use('/monitor', monitoringRouter);
 app.use('/admin', adminRouter);
-app.use('/org',organizationRouter);
-app.use('/option',optionRouter);
-app.use('/create',createRouter);
+app.use('/org', organizationRouter);
+app.use('/option', optionRouter);
+app.use('/create', createRouter);
 
 //       404 에러 핸들링
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 //       에러 핸들링
-app.use((err,req,res,next)=>{
+app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
@@ -67,7 +95,7 @@ app.use((err,req,res,next)=>{
 });
 
 //       리스너
-app.listen(3000,()=>{
+app.listen(3000, () => {
   console.log("서버 시작");
 });
 

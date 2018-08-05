@@ -34,20 +34,24 @@ let a = JSON.stringify(groups,null,2);
       <a href = "/other/web"><button class="button">모든 정보 가져오기 </button></a><br/>
       <a href = "/monitor"><button class="button">개발자 페이지 </button></a><br/>
 
-      <div id="loginForm" style="display: none">
-          그룹 : <select name="gidNumber" id="selectGidNumber">
-              <% for(let i =0 ;i<length; i++){ %>
-                  <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].koreanGroupName%></option>
-              <% } %>
-          </select>
-        아이디 : <input type="text" name="username" id="input_loginUsername" placeholder="당신의 아이디"> <br>
-        <label for="input_loginPassword">비밀번호</label>
-        <input type="password" name="password" id="input_loginPassword" placeholder="당신의 비밀번호"> <br>
-        <input type="submit" value="로그인 하기" class="button">
-      </div>
-      
+      <!-- 로그인 폼 -->
+      <form action="/user/bind" method="post">
+        <div id="loginForm" style="display: none">
+            그룹 : <select name="ou" id="selectGidNumber">
+                <% for(let i =0 ;i<length; i++){ %>
+                    <option value="<%=results.entries[i].cn%>"><%=results.entries[i].koreanGroupName%></option>
+                <% } %>
+            </select>
+          이름 : <input type="text" name="username" id="input_loginUsername" placeholder="대표이름"> <br>
+          <label for="input_loginPassword">비밀번호</label>
+          <input type="password" name="password" id="input_loginPassword" placeholder="당신의 비밀번호"> <br>
+          <input type="submit" value="로그인 하기" class="button">
+        </div>
+      </form>
+
       <br>
 
+      <!-- 회원가입 폼 -->
       <form action="/user/add" method="post">
           <div id="registerForm" style="display: none">
             성 <input type="text" name="gn" placeholder="성[GN]"> <br>

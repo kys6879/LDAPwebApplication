@@ -103,13 +103,16 @@ let userDn = `cn=${newUser.cn},ou=${groupName},${config.adSuffix}`;
 
 //       특정 유저 인증
 router.post('/bind',(req,res,next)=>{
-  let uid = req.body.uid;
+
+  let cn = req.body.username;
   let password = req.body.password;
-  ldap_authenticate.authenticate(uid,password).then(()=>{
+  let ou = req.body.ou;
+
+  ldap_authenticate.authenticate(cn,password,ou).then(()=>{
     console.log("인증성공");
-    res.send("인증성공");
+    res.send("<script>alert('인증성공'); history.back();</script>");
   },(err) =>{
-    console.log("인증실패"+err);
+    console.log("인증실패 에러코드 : "+err);
     res.send("인증실패");
   });
 });

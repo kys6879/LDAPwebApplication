@@ -8,11 +8,11 @@ const ldapOptions = {
     reconnect: true
 }
 
-let authenticate = (uid,password) => {
+let authenticate = (cn,password,ou) => {
     return new Promise((resolve ,reject) => {
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
-            'cn='+uid+','+'ou=users,dc=example,dc=org', // user DN
+            `cn=${cn},ou=${ou},${config.adSuffix}`,
             password,
             (err,res) => {
                 if (err) return reject(err);
