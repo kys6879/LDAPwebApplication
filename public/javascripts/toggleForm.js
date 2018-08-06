@@ -16,6 +16,6 @@ let toggleRegisterForm = () => {
     }
     isRegister = !isRegister;
     getOu(`ou=department`);
-    getGroups(`ou=groups`);
+    getGroups(`ou=position,ou=groups`);
     $("#registerForm").toggle();
 }

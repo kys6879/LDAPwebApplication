@@ -25,7 +25,9 @@ let getEntryData = (baseDn,options) =>{
                         if(r !== undefined){
                             /* 맵핑 */
                             createProperties.createDetailObjectClass(r);
-                            createProperties.createTreeLevel(r);
+                            if(r.detailObjectClass == "inetOrgPerson"){
+                                console.log("이 엔트리는 직책을 표시해야함");
+                            }
                             createProperties.createParents(r);
                             createProperties.createRoutePath(r);
                             /* 맵핑 */

@@ -18,16 +18,8 @@ let createDetailObjectClass = (r) =>{
             case "organizationalRole":
                 r.detailObjectClass = "organizationalRole";
                 break;
-            
         }                       
     }
-};
-
-let createTreeLevel = (r) =>{
-    let beforeDn = r.dn; 
-    let treeLevel = beforeDn.match(/,/g);
-
-    r.treeLevel = treeLevel.length-2;
 };
 
 let createParents = (r) =>{
@@ -67,7 +59,6 @@ let createRoutePath = (r) =>{
 };
 
 module.exports = {
-    createTreeLevel,
     createDetailObjectClass,
     createParents,
     createRoutePath
