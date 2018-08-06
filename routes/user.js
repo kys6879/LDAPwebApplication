@@ -42,16 +42,16 @@ router.get('/', (request, response, next) => {
 
 //       특정 유저 추가 WEB
 router.get('/add/web', (req, res, next) => {
-  let filter = "(ObjectClass=posixGroup)";
+  let filter = "(|(ObjectClass=organizationalUnit)(ObjectClass=posixGroup))";
   let dn = req.query.dn;
-  let baseDn = `${config.adSuffix}`
+  let baseDn = `ou=department,${config.adSuffix}`
   let options = {
     attributes: [
       "cn",
       "ObjectClass",
-      "gidNumber"
+      "businessCategory"
     ],
-    scope: "sub",
+    scope: "one",
     filter: filter
   };
   console.log(`/add/web DN : ${dn}`);
@@ -69,16 +69,8 @@ router.get('/add/web', (req, res, next) => {
 
 //       특정 유저 추가
 router.post('/add', (req, res, next) => {
-  let groupName = req.body.groupName;
-  let groupData = req.body.groupData;
-  
-  groupData = JSON.parse(groupData);
 
-  for (let i = 0; i < 3; i++) {
-    if (req.body.gidNumber == groupData[i].gnumber) {
-      groupName = groupData[i].gname;
-    }
-  }
+  let ouName = req.body.ou;
 
   let newUser = {
     givenName: req.body.gn,
@@ -92,7 +84,7 @@ router.post('/add', (req, res, next) => {
     objectClass: ["person", "posixAccount", "inetOrgPerson"],
   };
 
-  let userDn = `cn=${newUser.cn},ou=${groupName},${config.adSuffix}`;
+  let userDn = `cn=${newUser.cn},ou=${ouName},ou=department,${config.adSuffix}`;
   console.log(`/add userDn : ${userDn}`);
   ldap_add.addEntry(userDn, newUser).then(() => {
     console.log("유저 추가 성공");
@@ -104,11 +96,11 @@ router.post('/add', (req, res, next) => {
 });
 
 router.get('/passport/success', (request, response, next) => {
-  response.redirect('/');
+  response.send("<script>alert('로그인성공!'); location.href=`/`; </script>");
 });
 
 router.get('/passport/fail', (request, response, next) => {
-  response.send("<script>alert('로그인실패!..'); </script>");
+  response.send("<script>alert('로그인실패!..'); location.href=`/`; </script>");
 });
 
 router.get('/logout', (request, response, next) => {

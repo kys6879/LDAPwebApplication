@@ -12,7 +12,7 @@ let authenticate = (cn,password,ou) => {
     return new Promise((resolve ,reject) => {
         const ldapClient = ldapjs.createClient(ldapOptions);
         ldapClient.bind(
-            `cn=${cn},ou=${ou},${config.adSuffix}`,
+            `cn=${cn},ou=${ou},ou=department,${config.adSuffix}`,
             password,
             (err,res) => {
                 if (err) return reject(err);

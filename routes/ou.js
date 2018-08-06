@@ -25,7 +25,31 @@ router.get('/',(request,response,next)=>{
       console.log("검색실패",err);
       response.send("검색실패");
   });
-}); 
+});
+
+// 부모에 대한 하위 전체 조직 보기 JSON
+// 최상위 dc (adSuffix)를 제외한 dn 이 인자로 들어간다.
+router.get('/child/:basedn',(request,response,next)=>{
+  let filter = `(ObjectClass=organizationalUnit)`;
+  let baseDn = request.params.basedn;
+  baseDn = `${baseDn},${config.adSuffix}`;
+  let options = {
+    attributes: [
+      "ou",
+      "ObjectClass",
+      "businessCategory"
+    ],
+    scope: "one",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
+    console.log("검색성공!");
+    response.json(results.entries);
+  }, (err)=>{
+      console.log("검색실패",err);
+      response.json("검색실패");
+  });
+});
 
 //       특정 조직 추가 WEB
 router.get('/add/web',(req,res,next)=>{
@@ -102,6 +126,7 @@ router.delete('/:ou',(request,response,next)=>{
     response.send("삭제실패!"+err);
   });
 }); 
+
 // 특정 조직 상세보기 WEB
 router.get('/:ou/web',(request,response,next)=>{
   let ou = request.params.ou;

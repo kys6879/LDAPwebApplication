@@ -21,9 +21,9 @@
         성 <input type="text" name="gn" placeholder="gn" style="margin-left: 38px"> <br>
         이름 <input type="text" name="sn" placeholder="sn" style="margin-left: 25px"> <br>
         대표이름 <input type="text" name="displayName" placeholder="displayName"> <br>
-        그룹 : <select name="gidNumber">
+        부서 : <select name="ou">
             <% for(let i =0 ;i<length; i++){ %>
-                <option value="<%=results.entries[i].gidNumber%>"><%=results.entries[i].cn%></option>
+                <option value="<%=results.entries[i].ou%>"><%=results.entries[i].businessCategory%></option>
             <% } %>
         </select>
         <br>

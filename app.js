@@ -61,6 +61,7 @@ passport.use(new LocalStrategy({
     password : password,
     ou : req.body.ou
   };
+  console.log(`${user.cn},${user.password},${user.ou}`);
     ldap_authenticate.authenticate(user.cn,user.password,user.ou).then(()=>{
       console.log("인증성공");
       return done(null, user);
@@ -69,7 +70,6 @@ passport.use(new LocalStrategy({
       return done(null, false);
     });
 }));
-
 
 //       라우팅
 app.use('/', indexRouter);

@@ -35,7 +35,8 @@ router.get('/web',(request,response,next)=>{
         "ou",
         "dc",
         "ObjectClass",
-        "gidNumber"
+        "gidNumber",
+        "businessCategory"
     ],
     scope: "sub",
     filter: filter

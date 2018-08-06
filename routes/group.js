@@ -32,6 +32,30 @@ router.get('/', (request, response, next) => {
   });
 });
 
+// 부모에 대한 하위 전체 조직 보기 JSON
+// 최상위 dc (adSuffix)를 제외한 dn 이 인자로 들어간다.
+router.get('/child/:basedn',(request,response,next)=>{
+  let filter = `(ObjectClass=posixGroup)`;
+  let baseDn = request.params.basedn;
+  baseDn = `${baseDn},${config.adSuffix}`;
+  let options = {
+    attributes: [
+      "cn",
+      "ObjectClass",
+      "description",
+      "gidNumber"
+    ],
+    scope: "one",
+    filter: filter
+};
+  ldap_search.getEntryData(baseDn,options).then((results) => {
+    console.log("검색성공!");
+    response.json(results.entries);
+  }, (err)=>{
+      console.log("검색실패",err);
+      response.json("검색실패");
+  });
+});
 //       특정 그룹 추가 WEB
 router.get('/add/web',(req,res,next)=>{
   let dn = req.query.dn;
