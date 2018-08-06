@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/getObjects.js"></script>
     <title>Document</title>
 
 </head>
@@ -30,35 +31,6 @@
         $('#exportbutton').hide();
         let results = "";
         let kinds = "";
-        let getData = (url,kind) => {
-            $.ajax({
-                url: url,
-                dataType: 'json',                
-                type: 'GET',     
-                    success: (result) => {
-                        results = result;
-                        kinds = kind;
-                        $('#exportbutton').show();
-                        $('#result').text( JSON.stringify(result,null,2));
-                    } 
-                    }); 
-        }
-        let exportButton = () => {
-            console.log("에이젝스  " +kinds);
-            $.ajax({
-                url: '/option/export',          
-                dataType: 'json',                
-                type: 'POST',
-                data : {'entries' : JSON.stringify(results,null,2),
-                        'kind' : kinds},
-                    success: (result) => {
-                        if(result['result'] == true){
-                            alert("성공");
-                        }
-                    } 
-                    }); 
-            
-        }
     </script>
     </div>
     <%-include("../layout/footer") %>

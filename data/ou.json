@@ -13,9 +13,9 @@
     "routePath": "/ou/groups/web"
   },
   {
-    "dn": "ou=users,dc=example,dc=org",
+    "dn": "ou=department,dc=example,dc=org",
     "controls": [],
-    "ou": "users",
+    "ou": "department",
     "objectClass": [
       "organizationalUnit",
       "top"
@@ -23,19 +23,48 @@
     "detailObjectClass": "organizationalUnit",
     "treeLevel": 0,
     "parentsDn": "dc=example,dc=org",
-    "routePath": "/ou/users/web"
+    "routePath": "/ou/department/web"
   },
   {
-    "dn": "ou=testou,ou=groups,dc=example,dc=org",
+    "dn": "ou=hr,ou=department,dc=example,dc=org",
     "controls": [],
-    "ou": "testou",
     "objectClass": [
       "organizationalUnit",
       "top"
     ],
+    "ou": "hr",
+    "businessCategory": "인사부",
     "detailObjectClass": "organizationalUnit",
     "treeLevel": 1,
-    "parentsDn": "ou=groups,dc=example,dc=org",
-    "routePath": "/ou/testou/web"
+    "parentsDn": "ou=department,dc=example,dc=org",
+    "routePath": "/ou/hr/web"
+  },
+  {
+    "dn": "ou=sales,ou=department,dc=example,dc=org",
+    "controls": [],
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "ou": "sales",
+    "businessCategory": "판매부",
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 1,
+    "parentsDn": "ou=department,dc=example,dc=org",
+    "routePath": "/ou/sales/web"
+  },
+  {
+    "dn": "ou=dev,ou=department,dc=example,dc=org",
+    "controls": [],
+    "objectClass": [
+      "organizationalUnit",
+      "top"
+    ],
+    "ou": "dev",
+    "businessCategory": "개발부",
+    "detailObjectClass": "organizationalUnit",
+    "treeLevel": 1,
+    "parentsDn": "ou=department,dc=example,dc=org",
+    "routePath": "/ou/dev/web"
   }
 ]

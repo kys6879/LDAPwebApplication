@@ -6,6 +6,9 @@
     <link rel='stylesheet' href='/stylesheets/textbox.css' />
   </head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="/javascripts/toggleForm.js"></script>
+  <script src="/javascripts/getObjects.js"></script>
+  <script src="/javascripts/createOptions.js"></script>
   <body>
 
       <%-include("layout/header") %>
@@ -27,7 +30,7 @@
       <!-- 로그인 폼 -->
       <form action="/user/bind" method="post">
         <div id="loginForm" style="display: none">
-            부서 : <select name="ou" id="selectOu">
+            부서 : <select name="ou" class="selectOu">
               </select>
           이름 : <input type="text" name="username" id="input_loginUsername" placeholder="대표이름"> <br>
           <label for="input_loginPassword">비밀번호</label>
@@ -45,9 +48,9 @@
             이름 <input type="text" name="sn" placeholder="이름[sn]"> <br>
             대표이름 <input type="text" name="displayName" placeholder="대표이름[displayName]"> <br>
 
-            부서 : <select name="ou" id="selectOu">
+            부서 : <select name="ou" class="selectOu">
             </select>
-            그룹 : <select name="gidNumber" id="selectGroup">
+            그룹 : <select name="gidNumber" class="selectGroup">
             </select>
             유저번호 <input type="text" name="un" placeholder="유저번호[un]"> <br>
               비밀번호 <input type="password" name="password" placeholder="비밀번호[password]"> <br>
@@ -65,92 +68,6 @@
 
     let groupResults;
     let groupLength;
-    </script>
-
-    <script>
-      let isLogin = false;
-      let isRegister = false;
-      let toggleLoginForm = () =>{
-        if(isRegister){ 
-          isRegister = !isRegister;
-          $("#registerForm").toggle();     
-        }
-        isLogin = !isLogin;
-        getOu(`ou=department`);
-        $("#loginForm").toggle();
-      }
-      let toggleRegisterForm = () =>{
-        if(isLogin){ 
-          isLogin = !isLogin;
-          $("#loginForm").toggle();   
-        }
-        isRegister = !isRegister;
-        getOu(`ou=department`);
-        getGroups(`ou=groups`);
-        $("#registerForm").toggle();
-      }
-    </script>
-    <script>
-      let createOuOptions = (length,results) =>{
-        $("#selectOu").empty();
-        for(let i=0; i<length; i++){
-          let option = $(`<option value=${results[i].ou}>${results[i].businessCategory}</option>`);
-          $("#selectOu").append(option);
-        }
-      }
-      let createGroupOptions = (length,results) =>{
-        $("#selectGroup").empty();
-        for(let i=0; i<length; i++){
-          let option = $(`<option value=${results[i].gidNumber}>${results[i].description}</option>`);
-          $("#selectGroup").append(option);
-        }
-      }
-    </script>
-    <script>
-    let getOu = (baseDn) => {
-            console.log("getOu Ajax  " +baseDn);
-            $.ajax({
-                url: '/ou/child/'+baseDn,          
-                dataType: 'json',                
-                type: 'GET',
-                data : {},
-                    success: (result) => {
-                      console.log(`결과 : ${result}`);
-                      ouResults = result;
-                      ouLength = result.length;
-                    },
-                    err: (req,status,err) =>{
-                      alert("code = "+ req.status + " message = " + req.responseText + " error = " + err); // 실패 시 처리
-                    },
-                    complete : (data) =>{
-                      console.log(`ouResults : ${ouResults}`);
-                      console.log(`ouLength : ${ouLength}`);
-                      createOuOptions(ouLength,ouResults);
-                    }
-                    }); 
-        }
-        let getGroups = (baseDn) => {
-            console.log("getGroups Ajax  " +baseDn);
-            $.ajax({
-                url: '/group/child/'+baseDn,          
-                dataType: 'json',                
-                type: 'GET',
-                data : {},
-                    success: (result) => {
-                      console.log(`결과 : ${result}`);
-                      groupResults = result;
-                      groupLength = result.length;
-                    },
-                    err: (req,status,err) =>{
-                      alert("code = "+ req.status + " message = " + req.responseText + " error = " + err); // 실패 시 처리
-                    },
-                    complete : (data) =>{
-                      console.log(`ouResults : ${groupResults}`);
-                      console.log(`ouLength : ${groupLength}`);
-                      createGroupOptions(groupLength,groupResults);
-                    }
-                    }); 
-        }
     </script>
   </body>
 

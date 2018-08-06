@@ -114,7 +114,6 @@ router.post('/bind', passport.authenticate('local', {
   failureFlash: false
 }));
 
-
 //       특정 유저 비밀번호 변경
 router.put('/password', (req, res, next) => {
   let uid = req.body.uid;
