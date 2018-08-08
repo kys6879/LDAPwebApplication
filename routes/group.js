@@ -153,7 +153,8 @@ router.get('/:cn/web',(request,response,next)=>{
         "modifyTimestamp",
         "pwdPolicySubentry",
         "gidNumber",
-        "memberUid"
+        "memberUid",
+        "description"
     ],
     scope: "sub",
     filter: filter

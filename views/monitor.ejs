@@ -9,21 +9,50 @@
     <link rel='stylesheet' href='/stylesheets/textbox.css' />
     <script type="text/javascript" src="javascripts/dtree.js"></script>
     <title>Document</title>
+
+    <style>
+    .description {
+        width: 300px;
+        text-align: left;
+        font-size: 50px;
+        margin: 0 auto;
+    }
+    .description span {
+        margin-bottom: 10px;
+    }
+    .user_img{
+        margin-bottom: 10px;
+    }
+    span.first_cn{
+        font-size: 60px;
+    }
+    span.asinfo{
+        color: rgb(83, 87, 86);
+    }
+    </style>
+
 </head>
 
 <body>
     <%-include("layout/header") %>
-        <form action="/monitor/login" method="post">
-            <div id="loginForm">
-                아이디
-                <input type="text" name="username" placeholder="아이디">
-                <br> 비밀번호
-                <input type="password" name="password" placeholder="비밀번호">
-                <br>
-                <input type="submit" value="로그인하기" class="button">
+        <div class="main">
+            <div class="user_img">
+                <img src="/images/user.png" alt="" width="300px" height="300px"> 
             </div>
-        </form>
+            <br>
+            <div class="description">
+                <div style="margin-bottom: -20px;"><span class="first_cn">김</span>영서</div> <br>
+                <span class="asinfo">kyoungseo</span> <br>
+                <span class="asinfo">사원</span> <br>
+                <span class="asinfo">개발부</span> <br>
+            </div>
+            <hr size="5" noshade style="margin-top: 20px;">
+            <a href="/"><button class="button" style="margin-top: 20px;">메인으로 </button></a><br/>
+        </div>
+
+            
         
+
         <%-include("layout/footer") %>
 
 </body>

@@ -79,7 +79,7 @@ router.post('/add', (req, res, next) => {
     uidNumber: req.body.un,
     userPassword: req.body.password,
     cn: req.body.gn + req.body.sn,
-    businessCategory : req.body.position,
+    businessCategory: [req.body.position,req.body.depart],
     homeDirectory: "/home/users/" + req.body.displayName,
     objectClass: ["person", "posixAccount", "inetOrgPerson"],
   };
@@ -129,6 +129,34 @@ router.put('/password', (req, res, next) => {
   });
 });
 
+// 로그인 한 유저의 프로필 보기 WEB
+router.get('/myprofile/web', (request, response, next) => {
+  let cn = request.query.cn;
+  let filter = `(&(objectClass=person)(cn=${cn}))`;
+  let baseDn = `${config.adSuffix}`;
+  let options = {
+    attributes: [
+      "cn",
+      "uid",
+      "ObjectClass",
+      "gidNumber",
+      "businessCategory",
+    ],
+    scope: "sub",
+    filter: filter
+  };
+  ldap_search.getEntryData(baseDn, options).then((results) => {
+    console.log(`검색성공!!! : ${JSON.stringify(results.entries, null, 2)}`);
+    response.render('user/myprofile',{
+      result : results.entries[0]
+    });
+  }, (err) => {
+    console.log("검색실패", err);
+    response.send("검색실패");
+  });
+  
+});
+
 // 특정 유저 상세보기 JSON
 router.get('/:cn', (request, response, next) => {
   let cn = request.params.cn;
@@ -153,7 +181,7 @@ router.get('/:cn', (request, response, next) => {
     filter: filter
   };
   ldap_search.getEntryData(baseDn, options).then((results) => {
-    console.log(`검색성공!!! : ${JSON.stringify(results.entries,null,2)}`);
+    console.log(`검색성공!!! : ${JSON.stringify(results.entries, null, 2)}`);
     response.json(results.entries);
   }, (err) => {
     console.log("검색실패", err);
@@ -211,7 +239,7 @@ router.get('/:cn/web', (request, response, next) => {
     filter: filter
   };
   ldap_search.getEntryData(baseDn, options).then((results) => {
-    console.log("검색성공!" + results);
+    console.log("검색성공!" + JSON.stringify(results.entries, null, 2));
     response.render('detail/user_detail', {
       entry: results.entries[0]
     });
@@ -220,6 +248,7 @@ router.get('/:cn/web', (request, response, next) => {
     response.send("검색실패");
   });
 });
+
 
 
 

@@ -1,0 +1,18 @@
+.description {
+    width: 300px;
+    text-align: left;
+    font-size: 50px;
+    margin: 0 auto;
+}
+.description span {
+    margin-bottom: 10px;
+}
+.user_img{
+    margin-bottom: 10px;
+}
+span.first_cn{
+    font-size: 60px;
+}
+span.asinfo{
+    color: rgb(83, 87, 86);
+}

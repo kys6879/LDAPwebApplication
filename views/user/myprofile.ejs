@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/textbox.css' />
+    <link rel='stylesheet' href='/stylesheets/user/myprofile.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <title>Document</title>
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+    <%-include("../layout/header") %>
+    
+        <div class="main">
+            <div class="user_img">
+                <img src="/images/user.png" alt="" width="300px" height="300px"> 
+            </div>
+            <br>
+            <div class="description">
+                <div style="margin-bottom: -20px;"><span class="first_cn"></span><span class="last_cn"></span></div> <br>
+                <span class="asinfo"><%= result.uid%></span> <br>
+                <span class="asinfo"><%= result.businessCategory[0]%></span> <br>
+                <span class="asinfo"><%= result.businessCategory[1]%></span> <br>
+            </div>
+            <hr size="5" noshade style="margin-top: 20px;">
+            <a href="/"><button class="button" style="margin-top: 20px;">메인으로 </button></a><br/>
+        </div>
+
+        <%-include("../layout/footer") %>
+
+        <script>
+        let cn = "<%=result.cn %>"
+        let first_cn = cn.substring(0,1);
+        let last_cn = cn.substring(1,cn.length);
+
+        $(`.first_cn`).text(first_cn);
+        $(`.last_cn`).text(last_cn);
+        </script>
+
+</body>
+
+</html>

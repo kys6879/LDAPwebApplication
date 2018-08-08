@@ -19,13 +19,14 @@
       
       <% if (user) { %>
         <h1><%= user %> 님 환영합니다.!</h1>
+        <a href="/user/myprofile/web?cn=<%=user%>"><button class="button">내 프로필 </button></a><br/>
         <a href="/user/logout"><button class="button">로그아웃 </button></a><br/>
       <% }else{ %>
         <a onclick="click_loginButton();"><button class="button">로그인 </button></a><br/>
         <a onclick="click_registerButton();"><button class="button">회원가입 </button></a><br/>
       <% } %>
       <a href = "/other/web"><button class="button">모든 정보 가져오기 </button></a><br/>
-      <a onclick="getOu('ou=department');"><button class="button">개발자 페이지 </button></a><br/>
+      <a href="/monitor"><button class="button">개발자 페이지 </button></a><br/>
 
       <!-- 로그인 폼 -->
       <form action="/user/bind" method="post">
@@ -48,14 +49,14 @@
             이름 <input type="text" name="sn" placeholder="이름[sn]"> <br>
             대표이름 <input type="text" name="displayName" placeholder="대표이름[displayName]"> <br>
 
-            부서 : <select name="ou" class="selectOu">
+            부서 : <select name="ou" class="selectOu" onchange="getKoreanDepart(this);">
             </select>
             직책 : <select name="gidNumber" class="selectGroup" onchange="getKoreanPosition(this);">
             </select>
             유저번호 <input type="text" name="un" placeholder="유저번호[un]"> <br>
               비밀번호 <input type="password" name="password" placeholder="비밀번호[password]"> <br>
-              <input type="hidden" name="groupData" value = "">
-              <input type="text" id="position" name="position" value = "">
+              <input type="hidden" id="depart" name="depart" value = "인사부">
+              <input type="hidden" id="position" name="position" value = "사원">
               <input type="submit" value="회원가입 하기" class="button"> 
           </div>
       </form>
@@ -70,7 +71,8 @@
     let groupResults;
     let groupLength;
 
-    let selectText;
+    let selectText_position;
+    let selectText_depart;
     </script>
     <script>
       let click_loginButton = () =>{
@@ -80,8 +82,12 @@
         toggleRegisterForm();
       }
       let getKoreanPosition = (_this) =>{
-        selectText = _this.options[_this.selectedIndex].text;
-        $('#position').val(selectText);
+        selectText_position = _this.options[_this.selectedIndex].text;
+        $('#position').val(selectText_position);
+      }
+      let getKoreanDepart = (_this) =>{
+        selectText_depart = _this.options[_this.selectedIndex].text;
+        $('#depart').val(selectText_depart);
       }
     </script>
   </body>
