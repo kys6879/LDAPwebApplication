@@ -69,7 +69,6 @@ router.get('/add/web', (req, res, next) => {
 
 //       특정 유저 추가
 router.post('/add', (req, res, next) => {
-
   let ouName = req.body.ou;
 
   let newUser = {
@@ -80,6 +79,7 @@ router.post('/add', (req, res, next) => {
     uidNumber: req.body.un,
     userPassword: req.body.password,
     cn: req.body.gn + req.body.sn,
+    businessCategory : req.body.position,
     homeDirectory: "/home/users/" + req.body.displayName,
     objectClass: ["person", "posixAccount", "inetOrgPerson"],
   };
@@ -146,13 +146,14 @@ router.get('/:cn', (request, response, next) => {
       "gidNumber",
       "givenName",
       "homeDirectory",
-      "uidNumber"
+      "uidNumber",
+      "businessCategory",
     ],
     scope: "sub",
     filter: filter
   };
   ldap_search.getEntryData(baseDn, options).then((results) => {
-    console.log("검색성공!" + results);
+    console.log(`검색성공!!! : ${JSON.stringify(results.entries,null,2)}`);
     response.json(results.entries);
   }, (err) => {
     console.log("검색실패", err);
@@ -203,7 +204,8 @@ router.get('/:cn/web', (request, response, next) => {
       "gidNumber",
       "givenName",
       "homeDirectory",
-      "uidNumber"
+      "uidNumber",
+      "businessCategory"
     ],
     scope: "sub",
     filter: filter

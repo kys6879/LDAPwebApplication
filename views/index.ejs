@@ -21,8 +21,8 @@
         <h1><%= user %> 님 환영합니다.!</h1>
         <a href="/user/logout"><button class="button">로그아웃 </button></a><br/>
       <% }else{ %>
-        <a onclick="toggleLoginForm();"><button class="button">로그인 </button></a><br/>
-        <a onclick="toggleRegisterForm();"><button class="button">회원가입 </button></a><br/>
+        <a onclick="click_loginButton();"><button class="button">로그인 </button></a><br/>
+        <a onclick="click_registerButton();"><button class="button">회원가입 </button></a><br/>
       <% } %>
       <a href = "/other/web"><button class="button">모든 정보 가져오기 </button></a><br/>
       <a onclick="getOu('ou=department');"><button class="button">개발자 페이지 </button></a><br/>
@@ -42,7 +42,7 @@
       <br>
 
       <!-- 회원가입 폼 -->
-      <form action="/user/add" method="post">
+      <form action="/user/add" method="post" class="register_form">
           <div id="registerForm" style="display: none">
             성 <input type="text" name="gn" placeholder="성[GN]"> <br>
             이름 <input type="text" name="sn" placeholder="이름[sn]"> <br>
@@ -50,11 +50,12 @@
 
             부서 : <select name="ou" class="selectOu">
             </select>
-            그룹 : <select name="gidNumber" class="selectGroup">
+            직책 : <select name="gidNumber" class="selectGroup" onchange="getKoreanPosition(this);">
             </select>
             유저번호 <input type="text" name="un" placeholder="유저번호[un]"> <br>
               비밀번호 <input type="password" name="password" placeholder="비밀번호[password]"> <br>
               <input type="hidden" name="groupData" value = "">
+              <input type="text" id="position" name="position" value = "">
               <input type="submit" value="회원가입 하기" class="button"> 
           </div>
       </form>
@@ -68,6 +69,20 @@
 
     let groupResults;
     let groupLength;
+
+    let selectText;
+    </script>
+    <script>
+      let click_loginButton = () =>{
+        toggleLoginForm();
+      }
+      let click_registerButton = () =>{
+        toggleRegisterForm();
+      }
+      let getKoreanPosition = (_this) =>{
+        selectText = _this.options[_this.selectedIndex].text;
+        $('#position').val(selectText);
+      }
     </script>
   </body>
 

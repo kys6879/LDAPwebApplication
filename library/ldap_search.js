@@ -25,9 +25,6 @@ let getEntryData = (baseDn,options) =>{
                         if(r !== undefined){
                             /* 맵핑 */
                             createProperties.createDetailObjectClass(r);
-                            if(r.detailObjectClass == "inetOrgPerson"){
-                                console.log("이 엔트리는 직책을 표시해야함");
-                            }
                             createProperties.createParents(r);
                             createProperties.createRoutePath(r);
                             /* 맵핑 */
@@ -43,7 +40,6 @@ let getEntryData = (baseDn,options) =>{
                             filterOption : options.filter, // 검색에 사용된 필터
                             entryLength : entries.length // 엔트리의 개수
                         };
-                        console.log(results.entries);
                         resolve(results);
                     });
                 });

@@ -1,9 +1,5 @@
-let createOuOptions = (length, results) => {
-    $(".selectOu").empty();
-    for (let i = 0; i < length; i++) {
-        let option = $(`<option value=${results[i].ou}>${results[i].businessCategory}</option>`);
-        $(".selectOu").append(option);
-    }
+let createHiddenKoreanPositionName = () =>{
+    let input_position = $(`<input type="text" name="position" value = ""  />`);
 }
 
 let createGroupOptions = (length, results) => {
@@ -13,3 +9,7 @@ let createGroupOptions = (length, results) => {
         $(".selectGroup").append(option);
     }
 }
+
+let input_position = $(`<input type="text" name="position" value = ""  />`);
+let div = $("#registerForm");
+div.append(input_position);
