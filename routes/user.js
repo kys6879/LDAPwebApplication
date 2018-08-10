@@ -26,7 +26,9 @@ router.get('/', (request, response, next) => {
       "gidNumber",
       "givenName",
       "homeDirectory",
-      "uidNumber"
+      "uidNumber",
+      "businessCategory",
+      "userPassword"
     ],
     scope: "sub",
     filter: filter

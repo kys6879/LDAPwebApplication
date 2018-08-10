@@ -1,6 +1,7 @@
 module.exports ={
     host     : 'localhost',
-    user     : 'root',
+    user     : 'ldap',
     password : 'root',
-    database : 'testdb'
+    database : 'LDAP',
+    multipleStatements : true
 }

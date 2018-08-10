@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +8,101 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/javascripts/getObjects.js"></script>
     <title>Document</title>
+    <style>
+        a {
+            color: black;
+        }
 
+        span {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
+
 <body>
-        <%-include("../layout/header") %>
+    <%-include("../layout/header") %>
 
         <div class="main">
-        <a onclick="getData('/other','other');">모든 정보 내보내기</a> <br>
-        <a onclick="getData('/user','user');">유저 정보 내보내기</a> <br>
-        <a onclick="getData('/group','group');">그룹 정보 내보내기</a> <br>
-        <a onclick="getData('/ou','ou');">조직 정보 내보내기</a> <br>
-        <a onclick="getData('/admin','admin');">어드민 정보 내보내기</a> <br>
-        <a onclick="getData('/org','org');">최상위조직 정보 내보내기</a> <br>
+            <a onclick="getData('/other','other');">
+                <span>모든 정보 내보내기</span>
+            </a>
+            <br>
+            <a onclick="getData('/user','user');">
+                <span>유저 정보 내보내기</span>
+            </a>
+            <br>
+            <a onclick="getData('/group','group');">
+                <span>그룹 정보 내보내기</span>
+            </a>
+            <br>
+            <a onclick="getData('/ou','ou');">
+                <span>조직 정보 내보내기</span>
+            </a>
+            <br>
+            <a onclick="getData('/admin','admin');">
+                <span>어드민 정보 내보내기</span>
+            </a>
+            <br>
+            <a onclick="getData('/org','org');">
+                <span>최상위조직 정보 내보내기</span>
+            </a>
+            <br>
+            <br>
+            <br>
+            <a onclick="exportToDB(`/user`);">
+                <span>DB로 내보내기</span>
+            </a>
+            <br>
 
-        <button onclick="exportButton()" id="exportbutton" class="button">확인한 결과를 내보내기</button>
-        <pre>
+            <button onclick="exportButton()" id="exportbutton" class="button">확인한 결과를 내보내기</button>
+            <pre>
         <div id="result">
             
         </div>
     </pre>
-    
-    <script>
-        $('#exportbutton').hide();
-        let results = "";
-        let kinds = "";
-    </script>
-    </div>
-    <%-include("../layout/footer") %>
+
+            <script>
+                $('#exportbutton').hide();
+                let results = "";
+                let kinds = "";
+            </script>
+
+            <script>
+                let exportToDB = (url) => {
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        type: 'GET',
+                        success: (result) => {
+                            alert('USER 데이터 가져오기 성공!');
+                            results = result;
+                            console.log(`${JSON.stringify(results)}`);
+                        },
+                        complete: () => {
+                            insertDB(results);
+                        }
+                    });
+                }
+                let insertDB = (users) => {
+                    alert(`DB에 넣는중...총 ${users.length} 개의 데이터`);
+                    $.ajax({
+                        url: '/option/export/db',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: {
+                            'users' :  JSON.stringify(users,null,2)
+                        },
+                        success: (result) => {
+                            if (result['result'] == true) {
+                                alert("성공");
+                            }
+                        }
+                    });
+                }
+            </script>
+        </div>
+        <%-include("../layout/footer") %>
 </body>
 
 </html>

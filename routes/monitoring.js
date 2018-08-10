@@ -7,17 +7,11 @@ const conn = mysql.createConnection(dbconfig);
 const router = express.Router();
 
 router.get('/', (request, response, next) => {
-    response.render('monitor');
+    var sql = `select * from user`;
+    conn.query(sql,(err,rows,fields)=>{
+        if (err ) throw err
+        response.render('monitor');  
+    })
 });
-
-router.get('/success', (request, response, next) => {
-    response.send("로그인성공");
-});
-
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/monitor/success',
-    failureRedirect: '/monitor',
-    failureFlash: false
-}));
 
 module.exports = router;
