@@ -142,6 +142,7 @@ router.delete('/:cn',(request,response,next)=>{
 // 특정 그룹 상세보기 WEB
 router.get('/:cn/web',(request,response,next)=>{
   let cn = request.params.cn;
+  cn = cn.split(',')[0];
   let filter = `(&(ObjectClass=posixGroup)(cn=${cn}))`;
   let baseDn = `${config.adSuffix}`;
   let options = {

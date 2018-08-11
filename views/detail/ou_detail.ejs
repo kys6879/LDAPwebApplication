@@ -8,11 +8,10 @@
     </head>
     <body>
             <%-include("../layout/header") %>
-        <h1>ou = <%-entry.ou %></h1>
+        <h1>ou = <%-entry.ou[1] %></h1>
         
         <div class="detail">
-            <div>ou : <%-entry.ou %></div><br>
-            <div>ou : <%-entry.businessCategory %></div><br>
+            <div>ou : <%-entry.ou[1] %></div><br>
             <div>[DN]dn : <%-entry.dn %></div><br>
             <div>objectClass : <%-entry.objectClass %></div> <br>
         </div>

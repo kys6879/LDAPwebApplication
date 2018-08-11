@@ -130,6 +130,7 @@ router.delete('/:ou',(request,response,next)=>{
 // 특정 조직 상세보기 WEB
 router.get('/:ou/web',(request,response,next)=>{
   let ou = request.params.ou;
+  ou = ou.split(',')[0];
   let filter = `(&(ObjectClass=organizationalUnit)(ou=${ou}))`;
   let baseDn = `${config.adSuffix}`;
   let options = {

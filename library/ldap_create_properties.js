@@ -36,7 +36,6 @@ let createParents = (r) =>{
 };
 
 let createRoutePath = (r) =>{
-    console.log(`router ${r.objectClass.length}`);
     for(let i=0; i<r.objectClass.length; i++){ 
         switch(r.objectClass[i]){
             case "organizationalUnit":

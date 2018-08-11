@@ -9,10 +9,10 @@
     </head>
     <body>
             <%-include("../layout/header") %>
-        <h1>cn =<%-entry.cn %></h1>
+        <h1>cn =<%-entry.cn[1] %></h1>
         
         <div class="detail">
-            <div>cn : <%-entry.cn %> </div><br>
+            <div>cn : <%-entry.cn[1] %> </div><br>
             <div>[DN]dn : <%-entry.dn %></div><br>
             <div>giNumber : <%-entry.gidNumber %> </div><br>
             <div> objectClass : <%-entry.objectClass %> </div><br>
