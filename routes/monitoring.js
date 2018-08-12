@@ -31,9 +31,9 @@ router.get('/', (request, response, next) => {
     };
     ldap_search.getEntryData(baseDn, options).then((results) => {
         console.log("검색성공!" + JSON.stringify(results.entries, null, 2));
-        // response.render('monitor', {
-        //     entry: results.entries[0]
-        // });
+        response.render('monitor', {
+            entry: results.entries[0]
+        });
     }, (err) => {
         console.log("검색실패", err);
         response.send("검색실패");
