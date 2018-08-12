@@ -50,9 +50,11 @@
                 if(dn == "<%-adSuffix%>"){ // 최상위 조직일경우 부모참조는 -1
                     d.add(dn  ,  -1  ,  viewDn[0]  ,  entry.routePath  );
                 }
-
-                d.add(dn  ,  entry.parentsDn  ,  viewDn[0]  ,  entry.routePath);
-                
+                if(entry.detailObjectClass == "inetOrgPerson"){
+                  d.add(dn  ,  entry.parentsDn  ,  viewDn[0]  ,  entry.routePath+"?gidNumber="+entry.gidNumber);
+                }else{
+                  d.add(dn  ,  entry.parentsDn  ,  viewDn[0]  ,  entry.routePath);
+                }
             });
             entries.forEach((entry,i) => {
               createNewEntry(entry);

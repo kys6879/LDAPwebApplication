@@ -220,7 +220,8 @@ router.delete('/:cn', (request, response, next) => {
 // 특정 유저 상세보기 WEB
 router.get('/:cn/web', (request, response, next) => {
   let cn = request.params.cn;
-  let filter = `(&(objectClass=person)(cn=${cn}))`
+  let filter = `(|(&(cn=${cn})(objectClass=person))(&(gidNumber=507)(objectClass=posixGroup)))` 
+  // group = 직책 . user 에 대한정보와 user 의 잭첵에 대한 정보를 search 함.
   let baseDn = `${config.adSuffix}`;
   let options = {
     attributes: [
@@ -241,6 +242,7 @@ router.get('/:cn/web', (request, response, next) => {
     filter: filter
   };
   ldap_search.getEntryData(baseDn, options).then((results) => {
+    response.send("<pre>"+JSON.stringify(results.entries, null, 2)+"</pre>");
     console.log("검색성공!" + JSON.stringify(results.entries, null, 2));
     response.render('detail/user_detail', {
       entry: results.entries[0]
