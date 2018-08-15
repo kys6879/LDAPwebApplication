@@ -12,16 +12,13 @@
         
         <div class="detail">
             <div>[이름]cn : <%-entry[1].cn %></div><br>
-            <div>[DN]dn : <%-entry[1].dn %></div><br>
-            <div>[그룹번호]gidNumber : <%-entry[1].gidNumber %></div> <br>
             <div>[직책] : <%-entry[0].cn[1] %></div> <br>
-            <div>[부서] : <%-entry[1].businessCategory[1] %></div> <br>
-            <div>[성]givenName : <%-entry[1].givenName %></div> <br>
-            <div>[홈 디렉토리]homeDirectroy : <%-entry[1].homeDirectory %></div> <br>
-            <div>[objectClass] : <%-entry[1].objectClass %></div> <br>
-            <div>[이름]sn : <%-entry[1].sn %></div> <br>
-            <div>[유저번호]uidNumber : <%-entry[1].uidNumber %> </div><br>
+            <div>[부서] : <%-entry[1].businessCategory %></div> <br>
             <div>[대표유저이름]user Name : <%-entry[1].uid %></div> <br>
+            <div>[objectClass] : <%-entry[1].objectClass %></div> <br>
+            <div>[DN]dn : <%-entry[1].dn %></div><br>
+            <div>[유저번호]uidNumber : <%-entry[1].uidNumber %> </div><br>
+            <div>[그룹번호]gidNumber : <%-entry[1].gidNumber %></div> <br>
         </div>
 
         <button onclick="deleteButton('<%-entry.cn%>')" id="deleteButton" class="button">삭제하기</button> <br>

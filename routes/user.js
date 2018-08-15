@@ -227,15 +227,9 @@ router.get('/:cn/web', (request, response, next) => {
   let options = {
     attributes: [
       "cn",
-      "sn",
       "uid",
       "ObjectClass",
-      "createTimestamp",
-      "modifyTimestamp",
-      "pwdPolicySubentry",
       "gidNumber",
-      "givenName",
-      "homeDirectory",
       "uidNumber",
       "businessCategory"
     ],
@@ -244,6 +238,8 @@ router.get('/:cn/web', (request, response, next) => {
   };
   ldap_search.getEntryData(baseDn, options).then((results) => {
     console.log("검색성공!" + JSON.stringify(results.entries, null, 2));
+    // response.send("<pre>"+JSON.stringify( results.entries,null,2)+"</pre>"); 
+
     response.render('detail/user_detail', {
       entry: results.entries
     });
