@@ -35,8 +35,8 @@ router.post('/export/db',(req, response, next) => {
     sql += `INSERT INTO user (user_cn,user_dn,user_gid,user_position,user_depart,user_display,user_number,user_password) 
     VALUES
     ("${users[i].cn}","${users[i].dn}",
-    "${users[i].gidNumber}","${users[i].businessCategory[0]}",
-    "${users[i].businessCategory[1]}","${users[i].uid}",
+    "${users[i].gidNumber}","${users[i].position}",
+    "${users[i].businessCategory}","${users[i].uid}",
     "${users[i].uidNumber}","${users[i].userPassword}");`
   }
   console.log(sql);

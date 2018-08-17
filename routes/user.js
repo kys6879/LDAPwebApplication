@@ -20,9 +20,6 @@ router.get('/', (request, response, next) => {
       "sn",
       "uid",
       "ObjectClass",
-      "createTimestamp",
-      "modifyTimestamp",
-      "pwdPolicySubentry",
       "gidNumber",
       "givenName",
       "homeDirectory",
@@ -35,6 +32,7 @@ router.get('/', (request, response, next) => {
   };
   ldap_search.getEntryData(baseDn, options).then((results) => {
     console.log("검색성공!");
+    console.log(`${JSON.stringify(results.entries,null,2)}`);
     response.json(results.entries);
   }, (err) => {
     console.log("검색실패", err);

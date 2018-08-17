@@ -27,6 +27,7 @@ let getEntryData = (baseDn,options) =>{
                             createProperties.createDetailObjectClass(r);
                             createProperties.createParents(r);
                             createProperties.createRoutePath(r);
+                            createProperties.createPosition(r);
                             /* 맵핑 */
                             entries.push(r);
                         }

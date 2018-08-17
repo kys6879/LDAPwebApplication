@@ -57,8 +57,32 @@ let createRoutePath = (r) =>{
     }    
 };
 
+let createPosition = (r) =>{
+    if(r.gidNumber  == 500){
+        r.position = "사원";
+    }else if(r.gidNumber == 501){
+        r.position = "대리";
+    }
+    else if(r.gidNumber == 505){
+        r.position = "차장";
+    }
+    else if(r.gidNumber == 508){
+        r.position = "이사";
+    }
+    else if(r.gidNumber == 506){
+        r.position = "부장";
+    }
+    else if(r.gidNumber == 504){
+        r.position = "과장";
+    }
+    else if(r.gidNumber == 507){
+        r.position = "사장";
+    }
+};
+
 module.exports = {
     createDetailObjectClass,
     createParents,
-    createRoutePath
+    createRoutePath,
+    createPosition
 }
